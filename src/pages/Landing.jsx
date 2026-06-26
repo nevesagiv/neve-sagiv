@@ -42,6 +42,18 @@ export default function Landing() {
   const [ctaRef, ctaVisible] = useScrollReveal();
 
   useEffect(() => {
+    document.title = 'נווה שגיב | השקעה בנכסי כינוס נכסים — ליווי מקצועי A עד Z';
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute(
+      'content',
+      'נכסים בכינוס במחיר נמוך מהשוק. ליווי משפטי מלא מהבדיקה ועד למפתח. השאר פרטים ונחזור תוך 24 שעות.'
+    );
+
     // Track UTM source for analytics later
     const url = new URL(window.location.href);
     const utm = url.searchParams.get('utm_source');
@@ -79,15 +91,6 @@ export default function Landing() {
 
   return (
     <div className="landing-page" dir="rtl">
-      <Helmet>
-        <title>נווה שגיב | השקעה בנכסי כינוס נכסים — ליווי מקצועי A עד Z</title>
-        <meta
-          name="description"
-          content="נכסים בכינוס במחיר נמוך מהשוק. ליווי משפטי מלא מהבדיקה ועד למפתח. השאר פרטים ונחזור תוך 24 שעות."
-        />
-        <meta name="robots" content="index, follow" />
-      </Helmet>
-
       {/* Minimal branding bar — no nav */}
       <header className="landing-brand">
         <div className="landing-brand-inner">
