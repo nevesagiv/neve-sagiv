@@ -5,7 +5,6 @@ import { localized } from '../lib/i18n-utils.js';
 import { fetchPublishedProperties } from '../lib/supabase.js';
 import PropertyCard from '../components/PropertyCard.jsx';
 import LeadModal from '../components/LeadModal.jsx';
-import CityGrid from '../components/CityGrid.jsx';
 import {
   IconShield,
   IconHandshake,
@@ -125,19 +124,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* CITY GRID */}
-      <CityGrid
-        propertiesPerCity={publicProperties.reduce((acc, p) => {
-          const cityHe = p.city?.he;
-          if (cityHe) acc[cityHe] = (acc[cityHe] ?? 0) + 1;
-          return acc;
-        }, {})}
-        onCitySelect={(cityHe) => {
-          setCityFilter(cityHe);
-          document.getElementById('listings')?.scrollIntoView({ behavior: 'smooth' });
-        }}
-      />
 
       {/* LISTINGS */}
       <section className="listings-section" id="listings">
