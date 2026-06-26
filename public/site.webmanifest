@@ -1,0 +1,21 @@
+{
+  "name": "שלמה אדיב - נכסי הזדמנות",
+  "short_name": "שלמה אדיב",
+  "description": "ליווי מקצועי ברכישת נכסים בכינוסי נכסים",
+  "lang": "he",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#1e3a5f",
+  "background_color": "#faf7f1",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/",
+  "orientation": "portrait-primary"
+}

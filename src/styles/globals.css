@@ -1,0 +1,243 @@
+/* Brand variables */
+:root {
+  --navy: #1e3a5f;
+  --navy-soft: #2d4a73;
+  --gold: #c9a55a;
+  --gold-soft: #e0c891;
+  --cream: #faf7f1;
+  --cream-deep: #f1ece1;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --line: rgba(30, 58, 95, 0.12);
+  --ok: #4a8268;
+  --warn: #b8862b;
+  --bad: #a6402f;
+  --shadow: 0 10px 30px -15px rgba(30, 58, 95, 0.25);
+  --shadow-strong: 0 20px 40px -20px rgba(30, 58, 95, 0.35);
+
+  /* Accessibility variables, controlled by the widget */
+  --a11y-font-scale: 1;
+}
+
+html {
+  font-size: calc(16px * var(--a11y-font-scale));
+}
+
+/* High contrast mode */
+:root[data-a11y-contrast="high"] {
+  --text: #000000;
+  --muted: #222222;
+  --line: #555555;
+  --navy: #000033;
+  --cream: #ffffff;
+  --cream-deep: #f0f0f0;
+}
+
+/* Inverted contrast */
+:root[data-a11y-contrast="inverted"] {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+:root[data-a11y-contrast="inverted"] img,
+:root[data-a11y-contrast="inverted"] svg,
+:root[data-a11y-contrast="inverted"] .a11y-panel,
+:root[data-a11y-contrast="inverted"] .a11y-toggle {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* Highlight links */
+:root[data-a11y-highlight-links="on"] a {
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 3px !important;
+  background-color: rgba(201, 165, 90, 0.18) !important;
+  padding: 1px 4px;
+  border-radius: 4px;
+}
+
+/* Pause animations */
+:root[data-a11y-pause-animations="on"] *,
+:root[data-a11y-pause-animations="on"] *::before,
+:root[data-a11y-pause-animations="on"] *::after {
+  animation-duration: 0.001s !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001s !important;
+}
+
+/* Readable font (Atkinson Hyperlegible-like fallback via standard fonts) */
+:root[data-a11y-readable-font="on"] body {
+  font-family: 'Verdana', 'Tahoma', 'Arial', sans-serif !important;
+  letter-spacing: 0.02em;
+  line-height: 1.8;
+}
+
+/* Skip-to-content link */
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  inset-inline-start: 10px;
+  background: var(--navy);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 0 0 8px 8px;
+  z-index: 9999;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.15s;
+}
+
+.skip-to-content:focus {
+  top: 0;
+  outline: 3px solid var(--gold);
+}
+
+/* Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Heebo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  line-height: 1.6;
+  font-weight: 400;
+  min-height: 100vh;
+}
+
+/* When language is Russian, use Open Sans */
+body[data-lang="ru"] {
+  font-family: 'Open Sans', system-ui, sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Common buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.15s;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background: var(--navy);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--navy-soft);
+}
+
+.btn-gold {
+  background: var(--gold);
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.btn-gold:hover {
+  background: var(--gold-soft);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--navy);
+  border-color: var(--line);
+}
+
+.btn-ghost:hover {
+  background: var(--cream-deep);
+}
+
+/* Common form inputs */
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 165, 90, 0.15);
+}
+
+.textarea {
+  min-height: 90px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.container-narrow {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Helpers */
+.muted {
+  color: var(--muted);
+}
+
+.hidden {
+  display: none !important;
+}

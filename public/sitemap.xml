@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://neve-sagiv.co.il/</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://neve-sagiv.co.il/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://neve-sagiv.co.il/?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://neve-sagiv.co.il/"/>
+  </url>
+
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://neve-sagiv.co.il/privacy</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://neve-sagiv.co.il/privacy"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://neve-sagiv.co.il/privacy?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://neve-sagiv.co.il/privacy"/>
+  </url>
+
+  <!-- Accessibility Statement -->
+  <url>
+    <loc>https://neve-sagiv.co.il/accessibility</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://neve-sagiv.co.il/accessibility"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://neve-sagiv.co.il/accessibility?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://neve-sagiv.co.il/accessibility"/>
+  </url>
+
+  <!-- Terms of Service -->
+  <url>
+    <loc>https://neve-sagiv.co.il/terms</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="he" href="https://neve-sagiv.co.il/terms"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://neve-sagiv.co.il/terms?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://neve-sagiv.co.il/terms"/>
+  </url>
+
+</urlset>

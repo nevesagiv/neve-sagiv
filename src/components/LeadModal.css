@@ -1,0 +1,131 @@
+.modal-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 58, 95, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+  animation: fadeIn 0.15s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal {
+  background: white;
+  border-radius: 16px;
+  padding: 36px;
+  max-width: 480px;
+  width: 100%;
+  max-height: 92vh;
+  overflow-y: auto;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.2s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal h3 {
+  color: var(--navy);
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.modal-sub {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.modal-property {
+  background: var(--cream);
+  padding: 14px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-right: 4px solid var(--gold);
+}
+
+[dir="ltr"] .modal-property {
+  border-right: none;
+  border-left: 4px solid var(--gold);
+}
+
+.modal-property strong {
+  color: var(--navy);
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.consent-group {
+  background: var(--cream);
+  padding: 12px;
+  border-radius: 8px;
+  border-inline-start: 3px solid var(--gold);
+}
+
+.consent-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text);
+  font-weight: normal;
+  margin: 0;
+}
+
+.consent-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  accent-color: var(--navy);
+  cursor: pointer;
+}
+
+.consent-label a {
+  color: var(--navy);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.consent-label a:hover {
+  color: var(--gold);
+}
+
+.error {
+  color: var(--bad);
+  font-size: 13px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
