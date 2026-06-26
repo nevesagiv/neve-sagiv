@@ -3,15 +3,16 @@ import { useTranslation } from 'react-i18next';
 
 import { localized } from '../lib/i18n-utils.js';
 import { fetchPublishedProperties } from '../lib/supabase.js';
+import { useCountUp } from '../hooks/useCountUp.js';
+import { useScrollReveal } from '../hooks/useScrollReveal.js';
 import PropertyCard from '../components/PropertyCard.jsx';
 import LeadModal from '../components/LeadModal.jsx';
+import RecentActivityBar from '../components/RecentActivityBar.jsx';
 import {
   IconShield,
-  IconHandshake,
   IconScroll,
   IconSearch,
   IconChat,
-  IconKey,
   IconBalance,
   IconGlobe,
   IconChart,
@@ -85,8 +86,21 @@ export default function Home() {
     document.getElementById('process')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // Animated counters for hero stats
+  const propertyCount = useCountUp(publicProperties.length, { duration: 1400 });
+  const citiesCount = useCountUp(cities.length, { duration: 1600 });
+  const servicePct = useCountUp(100, { duration: 1800 });
+
+  // Scroll-reveal refs for each section
+  const [listingsRef, listingsVisible] = useScrollReveal();
+  const [processRef, processVisible] = useScrollReveal();
+  const [valueRef, valueVisible] = useScrollReveal();
+  const [ctaRef, ctaVisible] = useScrollReveal();
+
   return (
     <>
+      <RecentActivityBar />
+
       {/* HERO */}
       <section className="hero">
         <div className="hero-glow" aria-hidden="true" />
@@ -108,17 +122,17 @@ export default function Home() {
           </div>
           <div className="hero-stats">
             <div className="hero-stat">
-              <div className="hero-stat-num">{publicProperties.length}</div>
+              <div className="hero-stat-num">{propertyCount}</div>
               <div className="hero-stat-label">{t('home.stat_properties')}</div>
             </div>
             <div className="hero-stat-divider" />
             <div className="hero-stat">
-              <div className="hero-stat-num">{cities.length}</div>
+              <div className="hero-stat-num">{citiesCount}</div>
               <div className="hero-stat-label">{t('home.stat_cities')}</div>
             </div>
             <div className="hero-stat-divider" />
             <div className="hero-stat">
-              <div className="hero-stat-num">100%</div>
+              <div className="hero-stat-num">{servicePct}%</div>
               <div className="hero-stat-label">{t('home.stat_service')}</div>
             </div>
           </div>
@@ -126,7 +140,11 @@ export default function Home() {
       </section>
 
       {/* LISTINGS */}
-      <section className="listings-section" id="listings">
+      <section
+        ref={listingsRef}
+        className={`listings-section reveal ${listingsVisible ? 'is-visible' : ''}`}
+        id="listings"
+      >
         <div className="container">
           <div className="section-head">
             <span className="section-tag">{t('home.listings_tag')}</span>
@@ -209,7 +227,11 @@ export default function Home() {
       </section>
 
       {/* PROCESS STEPS */}
-      <section className="process-section" id="process">
+      <section
+        ref={processRef}
+        className={`process-section reveal ${processVisible ? 'is-visible' : ''}`}
+        id="process"
+      >
         <div className="container">
           <div className="section-head">
             <span className="section-tag">{t('home.process_tag')}</span>
@@ -225,7 +247,10 @@ export default function Home() {
       </section>
 
       {/* VALUE PROPS (Why Us) */}
-      <section className="value-section">
+      <section
+        ref={valueRef}
+        className={`value-section reveal ${valueVisible ? 'is-visible' : ''}`}
+      >
         <div className="container">
           <div className="section-head section-head-light">
             <span className="section-tag section-tag-light">{t('home.value_tag')}</span>
@@ -241,7 +266,10 @@ export default function Home() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="final-cta">
+      <section
+        ref={ctaRef}
+        className={`final-cta reveal ${ctaVisible ? 'is-visible' : ''}`}
+      >
         <div className="container container-narrow">
           <span className="section-tag">{t('home.final_cta_tag')}</span>
           <h2 className="final-cta-title">{t('home.final_cta_title')}</h2>
@@ -258,16 +286,6 @@ export default function Home() {
         onClose={() => setSelectedProperty(null)}
       />
     </>
-  );
-}
-
-function TrustItem({ icon, title, desc }) {
-  return (
-    <div className="trust-item">
-      <div className="trust-icon">{icon}</div>
-      <h3 className="trust-title">{title}</h3>
-      <p className="trust-desc">{desc}</p>
-    </div>
   );
 }
 
