@@ -5,7 +5,7 @@ import { localized } from '../lib/i18n-utils.js';
 import { fetchPublishedProperties } from '../lib/supabase.js';
 import PropertyCard from '../components/PropertyCard.jsx';
 import LeadModal from '../components/LeadModal.jsx';
-import IsraelMap from '../components/IsraelMap.jsx';
+import CityGrid from '../components/CityGrid.jsx';
 import {
   IconShield,
   IconHandshake,
@@ -126,8 +126,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* INTERACTIVE MAP */}
-      <IsraelMap
+      {/* CITY GRID */}
+      <CityGrid
         propertiesPerCity={publicProperties.reduce((acc, p) => {
           const cityHe = p.city?.he;
           if (cityHe) acc[cityHe] = (acc[cityHe] ?? 0) + 1;
