@@ -100,9 +100,11 @@ export default function LeadsTable({ leads, onSelectLead, onExportCsv }) {
                     <td className="admin-date">{formatDate(l.date)}</td>
                     <td>
                       <div className="admin-name">{l.name}</div>
-                      <div className="admin-cell-sub" dir="ltr">{l.email}</div>
                     </td>
-                    <td className="admin-cell-sub" dir="ltr">{l.phone}</td>
+                    <td dir="ltr">
+                      <div className="admin-cell-sub">{l.phone}</div>
+                      {l.email && <div className="admin-cell-sub">{l.email}</div>}
+                    </td>
                     <td>{l.property_label}</td>
                     <td>
                       <span className={`source-badge source-${l.source === 'דף נחיתה' ? 'landing' : 'site'}`}>
