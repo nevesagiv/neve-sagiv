@@ -332,7 +332,7 @@ export default function Landing() {
         className={`landing-final reveal ${ctaVisible ? 'is-visible' : ''}`}
       >
         <div className="landing-container landing-container-narrow">
-          <h2 className="landing-final-title">מוכן להתחיל?</h2>
+          <h2 className="landing-final-title">מוכנים להתחיל?</h2>
           <p className="landing-final-sub">
             השקעה בנכסים יכולה להיות הצעד הכי חכם שתעשו השנה, אם תעשו אותו נכון.
             <br />
