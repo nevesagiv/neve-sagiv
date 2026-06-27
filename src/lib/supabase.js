@@ -77,16 +77,29 @@ function adaptLead(row) {
 }
 
 export async function fetchAllLeadsAdmin() {
-  const { data, error } = await supabase
+  // Two-step fetch (avoids PostgREST embed/FK detection issues):
+  // 1) Fetch all leads
+  const { data: leadsRows, error: leadsErr } = await supabase
     .from('leads')
-    .select(`
-      id, full_name, phone, email, message, created_at,
-      is_read, is_archived, contacted_at, notes,
-      property:properties(id, city, street, property_type, trustee_name, trustee_phone)
-    `)
+    .select('id, full_name, phone, email, message, created_at, is_read, is_archived, contacted_at, notes, property_id')
     .order('created_at', { ascending: false });
-  if (error) throw error;
-  return (data ?? []).map(adaptLead);
+  if (leadsErr) throw leadsErr;
+
+  const leads = leadsRows ?? [];
+  const propertyIds = [...new Set(leads.map((l) => l.property_id).filter(Boolean))];
+
+  // 2) Fetch related properties (if any)
+  let propsMap = {};
+  if (propertyIds.length) {
+    const { data: propsRows, error: propsErr } = await supabase
+      .from('properties')
+      .select('id, city, street, property_type, trustee_name, trustee_phone')
+      .in('id', propertyIds);
+    if (propsErr) throw propsErr;
+    propsMap = Object.fromEntries((propsRows ?? []).map((p) => [p.id, p]));
+  }
+
+  return leads.map((row) => adaptLead({ ...row, property: propsMap[row.property_id] || null }));
 }
 
 export async function updateLeadStatus(leadId, status) {
