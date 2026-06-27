@@ -1,7 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { submitLead } from '../lib/supabase.js';
 import { useScrollReveal } from '../hooks/useScrollReveal.js';
 import './Landing.css';
+
+// Spam protection — minimum seconds between page open and form submit.
+// Bots fill instantly; humans take >3 sec to type. Tune if false-positives.
+const MIN_SUBMIT_SECONDS = 3;
+const RATE_LIMIT_KEY = 'landing_last_submit';
+const RATE_LIMIT_HOURS = 1;
 
 const FAQ_ITEMS = [
   {
@@ -30,6 +36,8 @@ export default function Landing() {
   const [form, setForm] = useState({ fullName: '', phone: '', email: '', message: '' });
   const [status, setStatus] = useState('idle'); // idle | submitting | success | error
   const [openFaq, setOpenFaq] = useState(0);
+  const [honeypot, setHoneypot] = useState('');
+  const openedAtRef = useRef(Date.now());
 
   const [valueRef, valueVisible] = useScrollReveal();
   const [processRef, processVisible] = useScrollReveal();
@@ -63,6 +71,30 @@ export default function Landing() {
       setStatus('error');
       return;
     }
+
+    // Spam: honeypot must be empty (bots fill hidden fields)
+    if (honeypot) {
+      // Fake success — don't reveal that the form was rejected
+      setStatus('success');
+      return;
+    }
+
+    // Spam: enforce minimum dwell time
+    const secondsOpen = (Date.now() - openedAtRef.current) / 1000;
+    if (secondsOpen < MIN_SUBMIT_SECONDS) {
+      setStatus('error');
+      return;
+    }
+
+    // Rate limit: 1 submission per hour per browser
+    try {
+      const last = Number(localStorage.getItem(RATE_LIMIT_KEY) || 0);
+      if (last && Date.now() - last < RATE_LIMIT_HOURS * 3600 * 1000) {
+        setStatus('success'); // Don't reveal limit hit
+        return;
+      }
+    } catch { /* localStorage blocked — proceed */ }
+
     setStatus('submitting');
     try {
       const utm = sessionStorage.getItem('landing_utm') || 'landing-direct';
@@ -73,6 +105,7 @@ export default function Landing() {
         email: form.email.trim() || null,
         message: `[מקור: דף נחיתה / ${utm}]${form.message ? '\n' + form.message : ''}`,
       });
+      try { localStorage.setItem(RATE_LIMIT_KEY, String(Date.now())); } catch { /* ignore */ }
       setStatus('success');
       setForm({ fullName: '', phone: '', email: '', message: '' });
     } catch (err) {
@@ -148,6 +181,17 @@ export default function Landing() {
               </div>
             ) : (
               <>
+                {/* Honeypot — hidden from users, bots will fill it */}
+                <input
+                  type="text"
+                  name="company"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  aria-hidden="true"
+                  style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', opacity: 0 }}
+                />
                 <div className="landing-form-field">
                   <label htmlFor="landing-name">שם מלא</label>
                   <input
