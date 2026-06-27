@@ -47,7 +47,7 @@ export default function Landing() {
     }
     metaDesc.setAttribute(
       'content',
-      'נכסים ממכרזים במחיר נמוך מהשוק. ליווי משפטי מלא מהבדיקה ועד למפתח. השאר פרטים ונחזור תוך 24 שעות.'
+      'נכסים ממכרזים במחיר נמוך מהשוק. ליווי משפטי מלא מהבדיקה ועד למפתח. השאירו פרטים ונחזור תוך 24 שעות.'
     );
 
     // Track UTM source for analytics later
@@ -133,7 +133,7 @@ export default function Landing() {
             noValidate
           >
             <div className="landing-form-head">
-              <h2>השאר פרטים, נחזור תוך 24 שעות</h2>
+              <h2>השאירו פרטים, נחזור תוך 24 שעות</h2>
               <p>בלי התחייבות, בלי עלות. שיחה ראשונית של עד 20 דקות.</p>
             </div>
 
@@ -336,10 +336,10 @@ export default function Landing() {
           <p className="landing-final-sub">
             השקעה בנכסים יכולה להיות הצעד הכי חכם שתעשה השנה, אם תעשה אותו נכון.
             <br />
-            השאר פרטים עכשיו, ונחזור אליך תוך 24 שעות.
+            השאירו פרטים עכשיו, ונחזור אליך תוך 24 שעות.
           </p>
           <button type="button" className="landing-final-btn" onClick={scrollToForm}>
-            השאר פרטים עכשיו →
+            השאירו פרטים עכשיו →
           </button>
         </div>
       </section>
