@@ -82,8 +82,8 @@ export default function CityGrid({ onCitySelect, propertiesPerCity = {} }) {
               disabled={c.count === 0}
               aria-label={
                 c.count > 0
-                  ? `${c.label} — ${c.count} נכסים`
-                  : `${c.label} — אין נכסים זמינים כרגע`
+                  ? `${c.label}: ${c.count} נכסים`
+                  : `${c.label}: אין נכסים זמינים כרגע`
               }
             >
               <div className="city-card-region">{c.region}</div>
