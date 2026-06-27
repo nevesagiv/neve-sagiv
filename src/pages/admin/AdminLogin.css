@@ -163,3 +163,52 @@
   outline: 2px solid #d4a017;
   outline-offset: 1px;
 }
+
+/* ===== Mobile fixes — kill default blue focus rings & autofill bars ===== */
+.login-card input,
+.password-wrap input {
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  caret-color: var(--navy);
+  font-size: 16px; /* prevents iOS zoom-on-focus */
+}
+
+.login-card input:focus,
+.password-wrap input:focus {
+  outline: none;
+  border-color: var(--gold);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.18);
+}
+
+/* Kill the yellow/blue autofill chrome that Chrome/Safari paint over the input */
+.login-card input:-webkit-autofill,
+.login-card input:-webkit-autofill:hover,
+.login-card input:-webkit-autofill:focus,
+.login-card input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+  -webkit-text-fill-color: var(--navy) !important;
+  caret-color: var(--navy) !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Password wrap needs the margin (not the input inside it) */
+.password-wrap {
+  margin-bottom: 16px;
+}
+.password-wrap input {
+  margin-bottom: 0;
+}
+
+/* Eye button — no default blue focus ring on tap */
+.password-toggle {
+  -webkit-tap-highlight-color: transparent;
+}
+.password-toggle:focus {
+  outline: none;
+}
+.password-toggle:focus-visible {
+  outline: 2px solid #d4a017;
+  outline-offset: 1px;
+}
