@@ -102,6 +102,11 @@ export async function fetchAllLeadsAdmin() {
   return leads.map((row) => adaptLead({ ...row, property: propsMap[row.property_id] || null }));
 }
 
+export async function deleteLeadAdmin(leadId) {
+  const { error } = await supabase.from('leads').delete().eq('id', leadId);
+  if (error) throw error;
+}
+
 export async function updateLeadStatus(leadId, status) {
   const patch = {};
   if (status === 'contacted') {

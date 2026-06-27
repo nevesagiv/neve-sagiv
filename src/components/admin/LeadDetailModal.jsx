@@ -11,12 +11,18 @@ function formatDate(iso) {
   });
 }
 
-export default function LeadDetailModal({ lead, onClose, onUpdateStatus }) {
+export default function LeadDetailModal({ lead, onClose, onUpdateStatus, onDelete }) {
   const { t } = useTranslation();
   if (!lead) return null;
 
   const copyPhone = () => {
     navigator.clipboard?.writeText(lead.phone);
+  };
+
+  const handleDelete = () => {
+    if (window.confirm(`למחוק לצמיתות את הליד של ${lead.name}?\nפעולה זו לא ניתנת לביטול.`)) {
+      onDelete?.(lead.id);
+    }
   };
 
   return (
@@ -90,24 +96,29 @@ export default function LeadDetailModal({ lead, onClose, onUpdateStatus }) {
         )}
 
         <div className="admin-modal-actions">
-          {lead.status !== 'called' && (
-            <button className="admin-btn-primary" onClick={() => onUpdateStatus('called')}>
-              {t('admin.action_mark_called')}
+          {lead.status !== 'contacted' && (
+            <button className="admin-btn-primary" onClick={() => onUpdateStatus('contacted')}>
+              סמן כחזרתי
             </button>
           )}
           {lead.status !== 'new' && (
             <button className="admin-btn-ghost" onClick={() => onUpdateStatus('new')}>
-              {t('admin.action_mark_new')}
+              החזר ל-"חדש"
             </button>
           )}
-          {lead.status !== 'cold' && (
-            <button className="admin-btn-ghost" onClick={() => onUpdateStatus('cold')}>
-              {t('admin.action_mark_cold')}
+          {lead.status !== 'closed' && (
+            <button className="admin-btn-ghost" onClick={() => onUpdateStatus('closed')}>
+              סגור
             </button>
           )}
           <button className="admin-btn-ghost" onClick={copyPhone}>
-            {t('admin.action_copy_phone')}
+            העתק טלפון
           </button>
+          {onDelete && (
+            <button className="admin-btn-danger" onClick={handleDelete}>
+              מחק לצמיתות
+            </button>
+          )}
         </div>
       </div>
     </div>
