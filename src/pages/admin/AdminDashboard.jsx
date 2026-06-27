@@ -23,7 +23,7 @@ export default function AdminDashboard() {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const [tab, setTab] = useState(TABS.LEADS);
+  const [tab, setTab] = useState(TABS.PROPERTIES);
   const [leads, setLeads] = useState([]);
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -246,17 +246,17 @@ export default function AdminDashboard() {
 
         <div className="admin-tabs">
           <button
+            className={`admin-tab ${tab === TABS.PROPERTIES ? 'active' : ''}`}
+            onClick={() => setTab(TABS.PROPERTIES)}
+          >
+            {t('admin.tab_properties')}
+          </button>
+          <button
             className={`admin-tab ${tab === TABS.LEADS ? 'active' : ''}`}
             onClick={() => setTab(TABS.LEADS)}
           >
             {t('admin.tab_leads')}
             {kpis.pending > 0 && <span className="admin-tab-badge">{kpis.pending}</span>}
-          </button>
-          <button
-            className={`admin-tab ${tab === TABS.PROPERTIES ? 'active' : ''}`}
-            onClick={() => setTab(TABS.PROPERTIES)}
-          >
-            {t('admin.tab_properties')}
           </button>
         </div>
 
