@@ -21,7 +21,7 @@ import './AdminDashboard.css';
 const TABS = { LEADS: 'leads', PROPERTIES: 'properties' };
 
 export default function AdminDashboard() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
   const [tab, setTab] = useState(TABS.PROPERTIES);
