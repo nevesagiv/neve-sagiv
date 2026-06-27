@@ -11,18 +11,12 @@ function formatDate(iso) {
   });
 }
 
-export default function LeadDetailModal({ lead, onClose, onUpdateStatus, onDelete }) {
+export default function LeadDetailModal({ lead, onClose, onUpdateStatus }) {
   const { t } = useTranslation();
   if (!lead) return null;
 
   const copyPhone = () => {
     navigator.clipboard?.writeText(lead.phone);
-  };
-
-  const handleDelete = () => {
-    if (window.confirm(`למחוק לצמיתות את הליד של ${lead.name}?\nפעולה זו לא ניתנת לביטול.`)) {
-      onDelete?.(lead.id);
-    }
   };
 
   return (
@@ -114,11 +108,6 @@ export default function LeadDetailModal({ lead, onClose, onUpdateStatus, onDelet
           <button className="admin-btn-ghost" onClick={copyPhone}>
             העתק טלפון
           </button>
-          {onDelete && (
-            <button className="admin-btn-danger" onClick={handleDelete}>
-              מחק לצמיתות
-            </button>
-          )}
         </div>
       </div>
     </div>

@@ -7,7 +7,6 @@ import {
   fetchAllLeadsAdmin,
   fetchAllPropertiesAdmin,
   updateLeadStatus,
-  deleteLeadAdmin,
   togglePropertyPublishedAdmin,
   savePropertyAdmin,
   deletePropertyAdmin,
@@ -112,18 +111,6 @@ export default function AdminDashboard() {
       totalProperties: properties.length,
     };
   }, [leads, properties]);
-
-  // Lead delete — permanent
-  const deleteLead = async (id) => {
-    try {
-      await deleteLeadAdmin(id);
-      setSelectedLead(null);
-      await reloadLeads();
-    } catch (err) {
-      console.error('Failed to delete lead', err);
-      alert('שגיאה במחיקת הליד: ' + (err.message || err));
-    }
-  };
 
   // Lead update (status change) — async, writes to Supabase
   const updateLead = async (id, patch) => {
@@ -295,7 +282,6 @@ export default function AdminDashboard() {
         lead={selectedLead}
         onClose={() => setSelectedLead(null)}
         onUpdateStatus={(status) => updateLead(selectedLead.id, { status })}
-        onDelete={deleteLead}
       />
 
       {showPropertyForm && (
