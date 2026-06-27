@@ -86,7 +86,15 @@ export default function Landing() {
   }
 
   function scrollToForm() {
-    document.getElementById('landing-final-cta')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const nameInput = document.getElementById('landing-name');
+    if (nameInput) {
+      nameInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Wait for scroll to settle, then focus the input
+      setTimeout(() => nameInput.focus({ preventScroll: true }), 600);
+    } else {
+      // Fallback if form already submitted (success state)
+      document.querySelector('.landing-form')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
   }
 
   return (
