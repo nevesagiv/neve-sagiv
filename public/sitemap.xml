@@ -5,7 +5,7 @@
   <!-- Homepage -->
   <url>
     <loc>https://neve-sagiv.co.il/</loc>
-    <lastmod>2026-06-25</lastmod>
+    <lastmod>2026-06-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="he" href="https://neve-sagiv.co.il/"/>
@@ -16,7 +16,7 @@
   <!-- Privacy Policy -->
   <url>
     <loc>https://neve-sagiv.co.il/privacy</loc>
-    <lastmod>2026-06-25</lastmod>
+    <lastmod>2026-06-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="he" href="https://neve-sagiv.co.il/privacy"/>
@@ -27,7 +27,7 @@
   <!-- Accessibility Statement -->
   <url>
     <loc>https://neve-sagiv.co.il/accessibility</loc>
-    <lastmod>2026-06-25</lastmod>
+    <lastmod>2026-06-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="he" href="https://neve-sagiv.co.il/accessibility"/>
@@ -38,7 +38,7 @@
   <!-- Terms of Service -->
   <url>
     <loc>https://neve-sagiv.co.il/terms</loc>
-    <lastmod>2026-06-25</lastmod>
+    <lastmod>2026-06-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="he" href="https://neve-sagiv.co.il/terms"/>

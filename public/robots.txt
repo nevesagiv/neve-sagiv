@@ -1,5 +1,5 @@
-# robots.txt for Shlomo Adiv website
-# Generated 2026-06-25
+# robots.txt for Neve Sagiv website
+# Generated 2026-06-25, updated 2026-06-27
 
 User-agent: *
 Allow: /
