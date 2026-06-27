@@ -41,7 +41,7 @@ export default function Home() {
   const cities = useMemo(() => {
     const set = new Set();
     publicProperties.forEach((p) => {
-      const value = localized(p.city, lang);
+      const value = localized(p.city, lang, 'city');
       if (value) set.add(value);
     });
     return [...set].sort((a, b) => a.localeCompare(b, lang));
@@ -50,7 +50,7 @@ export default function Home() {
   const types = useMemo(() => {
     const set = new Set();
     publicProperties.forEach((p) => {
-      const value = localized(p.property_type, lang);
+      const value = localized(p.property_type, lang, 'type');
       if (value) set.add(value);
     });
     return [...set].sort((a, b) => a.localeCompare(b, lang));
@@ -59,8 +59,8 @@ export default function Home() {
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
     return publicProperties.filter((p) => {
-      const city = localized(p.city, lang) || '';
-      const type = localized(p.property_type, lang) || '';
+      const city = localized(p.city, lang, 'city') || '';
+      const type = localized(p.property_type, lang, 'type') || '';
       if (cityFilter && city !== cityFilter) return false;
       if (typeFilter && type !== typeFilter) return false;
       if (q) {

@@ -51,10 +51,11 @@ export default function LeadsTable({ leads, onSelectLead, onExportCsv }) {
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
         >
-          <option value="all">{t('admin.filter_status_all')}</option>
-          <option value="new">{t('admin.filter_status_new')}</option>
-          <option value="called">{t('admin.filter_status_called')}</option>
-          <option value="cold">{t('admin.filter_status_cold')}</option>
+          <option value="all">{t('admin.filter_status_all', 'כל הסטטוסים')}</option>
+          <option value="new">חדש</option>
+          <option value="contacted">טופל</option>
+          <option value="closed">סגור</option>
+          <option value="irrelevant">לא רלוונטי</option>
         </select>
         <select
           className="admin-select"
@@ -79,13 +80,14 @@ export default function LeadsTable({ leads, onSelectLead, onExportCsv }) {
                 <th>{t('admin.column_name')}</th>
                 <th>{t('admin.column_phone')}</th>
                 <th>{t('admin.column_property')}</th>
+                <th>הגעה</th>
                 <th>{t('admin.column_status')}</th>
               </tr>
             </thead>
             <tbody>
               {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="admin-empty">
+                  <td colSpan={6} className="admin-empty">
                     {t('admin.no_leads')}
                   </td>
                 </tr>
@@ -103,6 +105,11 @@ export default function LeadsTable({ leads, onSelectLead, onExportCsv }) {
                     </td>
                     <td className="admin-cell-sub" dir="ltr">{l.phone}</td>
                     <td>{l.property_label}</td>
+                    <td>
+                      <span className={`source-badge source-${l.source === 'דף נחיתה' ? 'landing' : 'site'}`}>
+                        {l.source}
+                      </span>
+                    </td>
                     <td>
                       <StatusBadge status={l.status} />
                     </td>

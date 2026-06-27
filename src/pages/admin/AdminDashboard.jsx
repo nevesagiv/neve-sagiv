@@ -202,7 +202,7 @@ export default function AdminDashboard() {
       closed: 'סגור',
       irrelevant: 'לא רלוונטי',
     };
-    const headers = ['תאריך', 'שם', 'טלפון', 'מייל', 'נכס', 'סטטוס', 'הודעה', 'שם עו"ד/כונס', 'טלפון עו"ד'];
+    const headers = ['תאריך', 'שם', 'טלפון', 'מייל', 'נכס', 'הגעה', 'סטטוס', 'הודעה', 'שם עו"ד/כונס', 'טלפון עו"ד'];
     const esc = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
     const rows = [headers.join(',')];
     for (const l of leads) {
@@ -212,6 +212,7 @@ export default function AdminDashboard() {
         l.phone,
         l.email,
         l.property_label,
+        l.source || '',
         STATUS_HE[l.status] || l.status,
         l.message || '',
         l.trustee_name || '',

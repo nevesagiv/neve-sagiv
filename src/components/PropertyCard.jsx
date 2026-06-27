@@ -6,8 +6,8 @@ export default function PropertyCard({ property, onInterested }) {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
 
-  const city = localized(property.city, lang);
-  const type = localized(property.property_type, lang);
+  const city = localized(property.city, lang, 'city');
+  const type = localized(property.property_type, lang, 'type');
   const street = property.street;
 
   return (

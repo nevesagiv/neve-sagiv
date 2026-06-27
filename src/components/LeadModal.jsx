@@ -29,8 +29,8 @@ export default function LeadModal({ property, isOpen, onClose }) {
   if (!isOpen) return null;
 
   const lang = i18n.language;
-  const city = localized(property?.city, lang);
-  const type = localized(property?.property_type, lang);
+  const city = localized(property?.city, lang, 'city');
+  const type = localized(property?.property_type, lang, 'type');
 
   const handleSubmit = async (event) => {
     event.preventDefault();

@@ -59,6 +59,12 @@ function adaptLead(row) {
   if (typeHe) labelParts.push(typeHe);
   if (cityHe) labelParts.push(`ב${cityHe}`);
   if (street) labelParts.push(`רח׳ ${street}`);
+
+  // Derive source from message tag added by Landing page form, otherwise it's a property interest from main site
+  const msg = row.message || '';
+  const isFromLanding = msg.startsWith('[מקור: דף נחיתה');
+  const source = isFromLanding ? 'דף נחיתה' : 'אתר';
+
   return {
     id: row.id,
     date: row.created_at?.slice(0, 10) || '',
@@ -67,8 +73,9 @@ function adaptLead(row) {
     phone: row.phone,
     email: row.email || '',
     property_label: prop ? labelParts.join(' ') : '— ליד מדף נחיתה',
+    source,
     status: deriveLeadStatus(row),
-    message: row.message || '',
+    message: msg,
     trustee_name: prop?.trustee_name || '',
     trustee_phone: prop?.trustee_phone || '',
     is_read: row.is_read,
