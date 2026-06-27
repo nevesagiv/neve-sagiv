@@ -31,7 +31,7 @@ const FAQ_ITEMS = [
 ];
 
 export default function Landing() {
-  const [form, setForm] = useState({ fullName: '', phone: '', message: '' });
+  const [form, setForm] = useState({ fullName: '', phone: '', email: '', message: '' });
   const [status, setStatus] = useState('idle'); // idle | submitting | success | error
   const [openFaq, setOpenFaq] = useState(0);
 
@@ -74,11 +74,11 @@ export default function Landing() {
         propertyId: null,
         fullName: form.fullName.trim(),
         phone: form.phone.trim(),
-        email: null,
+        email: form.email.trim() || null,
         message: `[מקור: דף נחיתה / ${utm}]${form.message ? '\n' + form.message : ''}`,
       });
       setStatus('success');
-      setForm({ fullName: '', phone: '', message: '' });
+      setForm({ fullName: '', phone: '', email: '', message: '' });
     } catch (err) {
       console.error(err);
       setStatus('error');
@@ -174,6 +174,18 @@ export default function Landing() {
                     value={form.phone}
                     onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
                     placeholder="050-1234567"
+                  />
+                </div>
+                <div className="landing-form-field">
+                  <label htmlFor="landing-email">אימייל (לא חובה)</label>
+                  <input
+                    id="landing-email"
+                    type="email"
+                    autoComplete="email"
+                    value={form.email}
+                    onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                    placeholder="name@example.com"
+                    dir="ltr"
                   />
                 </div>
                 <div className="landing-form-field">
