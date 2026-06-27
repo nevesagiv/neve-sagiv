@@ -281,3 +281,15 @@
     margin-inline-start: 0;
   }
 }
+
+/* Hide ugly number input spinners — easier to just type the number */
+.admin-modal input[type=number]::-webkit-inner-spin-button,
+.admin-modal input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+.admin-modal input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}

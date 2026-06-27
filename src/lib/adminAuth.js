@@ -32,3 +32,8 @@ export async function sendPasswordReset(email) {
   });
   if (error) throw error;
 }
+
+export async function updatePassword(newPassword) {
+  const { error } = await supabase.auth.updateUser({ password: newPassword });
+  if (error) throw error;
+}
