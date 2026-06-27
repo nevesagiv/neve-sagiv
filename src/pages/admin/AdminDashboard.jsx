@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { isAuthenticated, logout } from '../../lib/adminAuth.js';
+import { adminLogout, getCurrentUser, subscribeToAuthChanges } from '../../lib/adminAuth.js';
 import { MOCK_LEADS, MOCK_PROPERTIES_ADMIN } from '../../lib/mockAdminData.js';
 import LeadsTable from '../../components/admin/LeadsTable.jsx';
 import PropertiesTable from '../../components/admin/PropertiesTable.jsx';
@@ -24,15 +24,28 @@ export default function AdminDashboard() {
   const [editingProperty, setEditingProperty] = useState(null);
   const [showPropertyForm, setShowPropertyForm] = useState(false);
 
-  // Guard: must be authenticated
+  const [authChecked, setAuthChecked] = useState(false);
+
+  // Guard: must be authenticated (Supabase Auth)
   useEffect(() => {
-    if (!isAuthenticated()) {
-      navigate('/admin', { replace: true });
-    }
+    let active = true;
+    getCurrentUser().then((user) => {
+      if (!active) return;
+      if (!user) {
+        navigate('/admin', { replace: true });
+      } else {
+        setAuthChecked(true);
+      }
+    });
+    // React to sign-out from another tab
+    const unsubscribe = subscribeToAuthChanges((user) => {
+      if (!user) navigate('/admin', { replace: true });
+    });
+    return () => { active = false; unsubscribe(); };
   }, [navigate]);
 
-  const handleSignOut = () => {
-    logout();
+  const handleSignOut = async () => {
+    await adminLogout();
     navigate('/admin', { replace: true });
   };
 
@@ -115,6 +128,14 @@ export default function AdminDashboard() {
     a.click();
     URL.revokeObjectURL(url);
   };
+
+  if (!authChecked) {
+    return (
+      <div className="admin-shell admin-shell-loading">
+        <div className="admin-loading">טוען...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="admin-shell">

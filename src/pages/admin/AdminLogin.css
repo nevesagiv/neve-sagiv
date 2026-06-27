@@ -87,3 +87,41 @@
   font-size: 13px;
   margin-bottom: 12px;
 }
+
+/* Forgot password link */
+.login-reset-link {
+  display: block;
+  margin-top: 12px;
+  background: transparent;
+  border: none;
+  font-size: 13px;
+  color: #5a6477;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font: inherit;
+  font-size: 13px;
+  width: 100%;
+  text-align: center;
+  padding: 8px;
+}
+
+.login-reset-link:hover:not(:disabled) {
+  color: #d4a017;
+}
+
+.login-reset-link:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.login-success {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin: 8px 0;
+  line-height: 1.5;
+}

@@ -1,34 +1,59 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { isAuthenticated, login } from '../../lib/adminAuth.js';
+import { adminLogin, getCurrentUser, sendPasswordReset } from '../../lib/adminAuth.js';
 import './AdminLogin.css';
 
 export default function AdminLogin() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [resetMessage, setResetMessage] = useState(null);
 
   // If already authenticated, skip the login screen
   useEffect(() => {
-    if (isAuthenticated()) {
-      navigate('/admin/dashboard', { replace: true });
-    }
+    let active = true;
+    getCurrentUser().then((user) => {
+      if (active && user) {
+        navigate('/admin/dashboard', { replace: true });
+      }
+    });
+    return () => { active = false; };
   }, [navigate]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError(null);
+    setResetMessage(null);
     setLoading(true);
-    const ok = await login(password);
-    setLoading(false);
-    if (ok) {
+    try {
+      await adminLogin(email.trim(), password);
       navigate('/admin/dashboard', { replace: true });
-    } else {
-      setError(t('admin.login_error'));
+    } catch (err) {
+      console.error('Login failed:', err);
+      setError(err.message || t('admin.login_error', 'שם משתמש או סיסמה שגויים'));
       setPassword('');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleReset = async () => {
+    setError(null);
+    setResetMessage(null);
+    if (!email.trim()) {
+      setError('יש להזין את כתובת המייל לפני בקשת איפוס סיסמה');
+      return;
+    }
+    try {
+      await sendPasswordReset(email.trim());
+      setResetMessage('שלחנו קישור לאיפוס הסיסמה אל המייל שלך. תבדוק גם בספאם.');
+    } catch (err) {
+      console.error('Password reset failed:', err);
+      setError(err.message || 'לא הצלחנו לשלוח את הקישור. נסה שוב.');
     }
   };
 
@@ -36,23 +61,48 @@ export default function AdminLogin() {
     <div className="admin-login">
       <div className="login-card">
         <span className="login-pill">PRIVATE</span>
-        <h1>{t('admin.login_title')}</h1>
-        <p className="login-sub">{t('admin.login_sub')}</p>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="admin-password">{t('admin.password_label')}</label>
+        <h1>{t('admin.login_title', 'אזור ניהול')}</h1>
+        <p className="login-sub">{t('admin.login_sub', 'גישה לאזור הניהול של נווה שגיב')}</p>
+        <form onSubmit={handleSubmit} noValidate>
+          <label htmlFor="admin-email">{t('admin.email_label', 'אימייל')}</label>
+          <input
+            id="admin-email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="you@example.com"
+            autoComplete="username"
+            autoFocus
+            required
+            dir="ltr"
+          />
+
+          <label htmlFor="admin-password">{t('admin.password_label', 'סיסמה')}</label>
           <input
             id="admin-password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder={t('admin.password_placeholder')}
+            placeholder={t('admin.password_placeholder', 'הזן סיסמה')}
             autoComplete="current-password"
-            autoFocus
             required
+            dir="ltr"
           />
+
           {error && <p className="login-error">{error}</p>}
+          {resetMessage && <p className="login-success">{resetMessage}</p>}
+
           <button type="submit" disabled={loading}>
-            {loading ? t('admin.checking') : t('admin.login_button')}
+            {loading ? t('admin.checking', 'בודק...') : t('admin.login_button', 'כניסה')}
+          </button>
+
+          <button
+            type="button"
+            className="login-reset-link"
+            onClick={handleReset}
+            disabled={loading}
+          >
+            שכחתי סיסמה
           </button>
         </form>
       </div>
