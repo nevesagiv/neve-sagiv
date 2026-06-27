@@ -36,6 +36,11 @@ export default function AdminDashboard() {
 
   const [authChecked, setAuthChecked] = useState(false);
 
+  // Admin is Hebrew-only — force Hebrew regardless of public site language preference
+  useEffect(() => {
+    if (i18n.language !== 'he') i18n.changeLanguage('he');
+  }, [i18n]);
+
   async function reloadAll() {
     setLoading(true);
     setDataError(null);
@@ -226,14 +231,14 @@ export default function AdminDashboard() {
 
   if (!authChecked) {
     return (
-      <div className="admin-shell admin-shell-loading">
+      <div className="admin-shell admin-shell-loading notranslate" translate="no" lang="he" dir="rtl">
         <div className="admin-loading">טוען...</div>
       </div>
     );
   }
 
   return (
-    <div className="admin-shell">
+    <div className="admin-shell notranslate" translate="no" lang="he" dir="rtl">
       <header className="admin-header">
         <div className="admin-header-inner">
           <div className="admin-brand">

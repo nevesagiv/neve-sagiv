@@ -5,7 +5,7 @@ import { adminLogin, getCurrentUser, sendPasswordReset } from '../../lib/adminAu
 import './AdminLogin.css';
 
 export default function AdminLogin() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -13,6 +13,11 @@ export default function AdminLogin() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [resetMessage, setResetMessage] = useState(null);
+
+  // Admin is Hebrew-only
+  useEffect(() => {
+    if (i18n.language !== 'he') i18n.changeLanguage('he');
+  }, [i18n]);
 
   // If already authenticated, skip the login screen
   useEffect(() => {
@@ -59,7 +64,7 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="admin-login">
+    <div className="admin-login notranslate" translate="no" lang="he" dir="rtl">
       <div className="login-card">
         <span className="login-pill">PRIVATE</span>
         <h1>{t('admin.login_title', 'אזור ניהול')}</h1>
