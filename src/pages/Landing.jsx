@@ -98,10 +98,6 @@ export default function Landing() {
             <span className="landing-brand-name">נווה שגיב</span>
             <span className="landing-brand-tag">ייעוץ והשקעה בנכסי כינוס</span>
           </a>
-          <a href="tel:+972500000000" className="landing-brand-phone">
-            <PhoneIcon />
-            <span>חייגו אלינו</span>
-          </a>
         </div>
       </header>
 
@@ -329,7 +325,6 @@ export default function Landing() {
           <button type="button" className="landing-final-btn" onClick={scrollToForm}>
             השאר פרטים עכשיו →
           </button>
-          <p className="landing-final-fine">📞 או חייגו ישירות: <a href="tel:+972500000000">050-XXX-XXXX</a></p>
         </div>
       </section>
 
