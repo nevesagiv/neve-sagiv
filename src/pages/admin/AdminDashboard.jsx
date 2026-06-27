@@ -3,7 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { adminLogout, getCurrentUser, subscribeToAuthChanges } from '../../lib/adminAuth.js';
-import { MOCK_LEADS, MOCK_PROPERTIES_ADMIN } from '../../lib/mockAdminData.js';
+import {
+  fetchAllLeadsAdmin,
+  fetchAllPropertiesAdmin,
+  updateLeadStatus,
+  togglePropertyPublishedAdmin,
+  savePropertyAdmin,
+  deletePropertyAdmin,
+} from '../../lib/supabase.js';
 import LeadsTable from '../../components/admin/LeadsTable.jsx';
 import PropertiesTable from '../../components/admin/PropertiesTable.jsx';
 import LeadDetailModal from '../../components/admin/LeadDetailModal.jsx';
@@ -17,14 +24,52 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
 
   const [tab, setTab] = useState(TABS.LEADS);
-  const [leads, setLeads] = useState(MOCK_LEADS);
-  const [properties, setProperties] = useState(MOCK_PROPERTIES_ADMIN);
+  const [leads, setLeads] = useState([]);
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [dataError, setDataError] = useState(null);
 
   const [selectedLead, setSelectedLead] = useState(null);
   const [editingProperty, setEditingProperty] = useState(null);
   const [showPropertyForm, setShowPropertyForm] = useState(false);
 
   const [authChecked, setAuthChecked] = useState(false);
+
+  async function reloadAll() {
+    setLoading(true);
+    setDataError(null);
+    try {
+      const [leadsData, propsData] = await Promise.all([
+        fetchAllLeadsAdmin(),
+        fetchAllPropertiesAdmin(),
+      ]);
+      setLeads(leadsData);
+      setProperties(propsData);
+    } catch (err) {
+      console.error('Failed to load admin data', err);
+      setDataError(err.message || 'נכשל בטעינת הנתונים');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function reloadLeads() {
+    try {
+      const data = await fetchAllLeadsAdmin();
+      setLeads(data);
+    } catch (err) {
+      console.error('Failed to reload leads', err);
+    }
+  }
+
+  async function reloadProperties() {
+    try {
+      const data = await fetchAllPropertiesAdmin();
+      setProperties(data);
+    } catch (err) {
+      console.error('Failed to reload properties', err);
+    }
+  }
 
   // Guard: must be authenticated (Supabase Auth)
   useEffect(() => {
@@ -35,6 +80,7 @@ export default function AdminDashboard() {
         navigate('/admin', { replace: true });
       } else {
         setAuthChecked(true);
+        reloadAll();
       }
     });
     // React to sign-out from another tab
@@ -42,6 +88,7 @@ export default function AdminDashboard() {
       if (!user) navigate('/admin', { replace: true });
     });
     return () => { active = false; unsubscribe(); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
 
   const handleSignOut = async () => {
@@ -65,36 +112,63 @@ export default function AdminDashboard() {
     };
   }, [leads, properties]);
 
-  // Lead update (status change, etc.)
-  const updateLead = (id, patch) => {
+  // Lead update (status change) — async, writes to Supabase
+  const updateLead = async (id, patch) => {
+    // Optimistic UI
     setLeads((prev) => prev.map((l) => (l.id === id ? { ...l, ...patch } : l)));
     setSelectedLead((prev) => (prev && prev.id === id ? { ...prev, ...patch } : prev));
-  };
-
-  // Property toggle published / save / delete
-  const togglePublished = (id) => {
-    setProperties((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, is_published: !p.is_published } : p))
-    );
-  };
-
-  const saveProperty = (data) => {
-    if (data.id) {
-      setProperties((prev) => prev.map((p) => (p.id === data.id ? { ...p, ...data } : p)));
-    } else {
-      const id = Math.max(0, ...properties.map((p) => p.id)) + 1;
-      const today = new Date().toISOString().slice(0, 10);
-      setProperties((prev) => [{ ...data, id, added: today }, ...prev]);
+    try {
+      if (patch.status) {
+        await updateLeadStatus(id, patch.status);
+      }
+      await reloadLeads();
+    } catch (err) {
+      console.error('Failed to update lead', err);
+      alert('שגיאה בעדכון הליד: ' + (err.message || err));
+      await reloadLeads();
     }
-    setShowPropertyForm(false);
-    setEditingProperty(null);
   };
 
-  const deleteProperty = (id) => {
-    if (!window.confirm(t('admin.delete_confirm'))) return;
-    setProperties((prev) => prev.filter((p) => p.id !== id));
-    setShowPropertyForm(false);
-    setEditingProperty(null);
+  // Property toggle published / save / delete — async, writes to Supabase
+  const togglePublished = async (id) => {
+    const current = properties.find((p) => p.id === id);
+    if (!current) return;
+    const newValue = !current.is_published;
+    setProperties((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, is_published: newValue } : p))
+    );
+    try {
+      await togglePropertyPublishedAdmin(id, newValue);
+    } catch (err) {
+      console.error('Failed to toggle property', err);
+      alert('שגיאה בשינוי סטטוס פרסום: ' + (err.message || err));
+      await reloadProperties();
+    }
+  };
+
+  const saveProperty = async (data) => {
+    try {
+      await savePropertyAdmin(data);
+      await reloadProperties();
+      setShowPropertyForm(false);
+      setEditingProperty(null);
+    } catch (err) {
+      console.error('Failed to save property', err);
+      alert('שגיאה בשמירת הנכס: ' + (err.message || err));
+    }
+  };
+
+  const deleteProperty = async (id) => {
+    if (!window.confirm(t('admin.delete_confirm', 'למחוק את הנכס לצמיתות?'))) return;
+    try {
+      await deletePropertyAdmin(id);
+      await reloadProperties();
+      setShowPropertyForm(false);
+      setEditingProperty(null);
+    } catch (err) {
+      console.error('Failed to delete property', err);
+      alert('שגיאה במחיקת הנכס: ' + (err.message || err));
+    }
   };
 
   const openPropertyForm = (prop = null) => {
