@@ -78,6 +78,7 @@ export default function LeadsTable({ leads, onSelectLead, onExportCsv }) {
                 <th>{t('admin.column_date')}</th>
                 <th>{t('admin.column_name')}</th>
                 <th>{t('admin.column_phone')}</th>
+                <th>{t('admin.column_email', 'מייל')}</th>
                 <th>{t('admin.column_property')}</th>
                 <th>הגעה</th>
                 <th>{t('admin.column_status')}</th>
@@ -86,7 +87,7 @@ export default function LeadsTable({ leads, onSelectLead, onExportCsv }) {
             <tbody>
               {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="admin-empty">
+                  <td colSpan={7} className="admin-empty">
                     {t('admin.no_leads')}
                   </td>
                 </tr>
@@ -101,10 +102,8 @@ export default function LeadsTable({ leads, onSelectLead, onExportCsv }) {
                     <td>
                       <div className="admin-name">{l.name}</div>
                     </td>
-                    <td dir="ltr">
-                      <div className="admin-cell-sub">{l.phone}</div>
-                      {l.email && <div className="admin-cell-sub">{l.email}</div>}
-                    </td>
+                    <td className="admin-cell-sub" dir="ltr">{l.phone}</td>
+                    <td className="admin-cell-sub" dir="ltr">{l.email || '—'}</td>
                     <td>{l.property_label}</td>
                     <td>
                       <span className={`source-badge source-${l.source === 'דף נחיתה' ? 'landing' : 'site'}`}>
