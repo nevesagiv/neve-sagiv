@@ -47,7 +47,7 @@ function ContentHe() {
       <p>אם נתקלת בקושי בשימוש באתר, או שיש לך הצעות לשיפור, אנא פנה אלינו. נשתדל להגיב בתוך 7 ימי עסקים.</p>
       <div className="contact-box">
         <strong>רכז נגישות</strong>
-        שם: שלמה אדיב<br />
+        נווה שגיב<br />
         אימייל: nevesagiv@outlook.com
       </div>
     </>
@@ -79,7 +79,7 @@ function ContentRu() {
       <h2>Контакты координатора доступности</h2>
       <div className="contact-box">
         <strong>Координатор доступности</strong>
-        Имя: Шломо Адив<br />
+        Неве Сагив<br />
         Email: nevesagiv@outlook.com
       </div>
     </>
