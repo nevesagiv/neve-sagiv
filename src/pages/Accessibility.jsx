@@ -48,8 +48,7 @@ function ContentHe() {
       <div className="contact-box">
         <strong>רכז נגישות</strong>
         שם: שלמה אדיב<br />
-        טלפון: 050-6666128<br />
-        אימייל: accessibility@example.com
+        אימייל: nevesagiv@outlook.com
       </div>
     </>
   );
@@ -81,8 +80,7 @@ function ContentRu() {
       <div className="contact-box">
         <strong>Координатор доступности</strong>
         Имя: Шломо Адив<br />
-        Телефон: 050-6666128<br />
-        Email: accessibility@example.com
+        Email: nevesagiv@outlook.com
       </div>
     </>
   );

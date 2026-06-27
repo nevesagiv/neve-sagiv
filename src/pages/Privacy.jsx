@@ -75,8 +75,7 @@ function ContentHe() {
       <p>בכל שאלה בנוגע למדיניות הפרטיות או לבקשת מימוש זכויות:</p>
       <div className="contact-box">
         <strong>שלמה אדיב</strong>
-        טלפון: 050-6666128<br />
-        אימייל: shlomo@example.com
+        אימייל: nevesagiv@outlook.com
       </div>
     </>
   );
@@ -121,8 +120,7 @@ function ContentRu() {
       <h2>6. Контакты</h2>
       <div className="contact-box">
         <strong>Шломо Адив</strong>
-        Телефон: 050-6666128<br />
-        Email: shlomo@example.com
+        Email: nevesagiv@outlook.com
       </div>
     </>
   );

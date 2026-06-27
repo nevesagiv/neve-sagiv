@@ -20,7 +20,7 @@ export default function LeadDetailModal({ lead, onClose, onUpdateStatus, onDelet
   };
 
   const handleDelete = () => {
-    if (window.confirm(`למחוק לצמיתות את הליד של ${lead.name}?\n\nפעולה זו לא ניתנת לביטול. אם זה ליד שכבר טופל, עדיף לסמן "סגור" במקום למחוק.`)) {
+    if (window.confirm(`למחוק לצמיתות את הליד של ${lead.name}?\n\nפעולה זו לא ניתנת לביטול. אם הליד נסגר בהצלחה, עדיף לסמן "טופל" במקום למחוק.`)) {
       onDelete?.(lead.id);
     }
   };
@@ -98,22 +98,17 @@ export default function LeadDetailModal({ lead, onClose, onUpdateStatus, onDelet
         <div className="admin-modal-actions">
           {lead.status !== 'contacted' && (
             <button className="admin-btn-primary" onClick={() => onUpdateStatus('contacted')}>
+              סמן בתהליך
+            </button>
+          )}
+          {lead.status !== 'closed' && (
+            <button className="admin-btn-primary" onClick={() => onUpdateStatus('closed')}>
               סמן כטופל
             </button>
           )}
           {lead.status !== 'new' && (
             <button className="admin-btn-ghost" onClick={() => onUpdateStatus('new')}>
               החזר לחדש
-            </button>
-          )}
-          {lead.status !== 'closed' && (
-            <button className="admin-btn-ghost" onClick={() => onUpdateStatus('closed')}>
-              סגור
-            </button>
-          )}
-          {lead.status !== 'irrelevant' && (
-            <button className="admin-btn-ghost" onClick={() => onUpdateStatus('irrelevant')}>
-              לא רלוונטי
             </button>
           )}
           <button className="admin-btn-ghost" onClick={copyPhone}>

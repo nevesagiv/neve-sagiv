@@ -198,9 +198,9 @@ export default function AdminDashboard() {
   const exportLeadsCsv = () => {
     const STATUS_HE = {
       new: 'חדש',
-      contacted: 'טופל',
-      closed: 'סגור',
-      irrelevant: 'לא רלוונטי',
+      contacted: 'בתהליך',
+      closed: 'טופל',
+      irrelevant: 'טופל',
     };
     const headers = ['תאריך', 'שם', 'טלפון', 'מייל', 'נכס', 'הגעה', 'סטטוס', 'הודעה', 'שם עו"ד/כונס', 'טלפון עו"ד'];
     const esc = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;

@@ -53,9 +53,8 @@ export default function LeadsTable({ leads, onSelectLead, onExportCsv }) {
         >
           <option value="all">{t('admin.filter_status_all', 'כל הסטטוסים')}</option>
           <option value="new">חדש</option>
-          <option value="contacted">טופל</option>
-          <option value="closed">סגור</option>
-          <option value="irrelevant">לא רלוונטי</option>
+          <option value="contacted">בתהליך</option>
+          <option value="closed">טופל</option>
         </select>
         <select
           className="admin-select"
@@ -95,7 +94,7 @@ export default function LeadsTable({ leads, onSelectLead, onExportCsv }) {
                 filtered.map((l) => (
                   <tr
                     key={l.id}
-                    className={`admin-row ${l.status === 'new' ? 'admin-row-unread' : ''}`}
+                    className="admin-row"
                     onClick={() => onSelectLead(l)}
                   >
                     <td className="admin-date">{formatDate(l.date)}</td>
