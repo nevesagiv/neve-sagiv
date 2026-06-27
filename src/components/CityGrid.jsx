@@ -107,7 +107,7 @@ export default function CityGrid({ onCitySelect, propertiesPerCity = {} }) {
               )}
               {c.count > 0 && (
                 <div className="city-card-cta" aria-hidden="true">
-                  <span>{t('cityGrid.enter', 'צפה בנכסים')}</span>
+                  <span>{t('cityGrid.enter', 'צפו בנכסים')}</span>
                   <ArrowIcon />
                 </div>
               )}
