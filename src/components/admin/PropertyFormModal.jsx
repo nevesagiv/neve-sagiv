@@ -5,8 +5,10 @@ import './AdminModals.css';
 const EMPTY = {
   id: null,
   city: '',
+  city_ru: '',
   street: '',
   type: '',
+  type_ru: '',
   rooms: '',
   area: '',
   trustee_name: '',
@@ -132,6 +134,33 @@ export default function PropertyFormModal({ property, onSave, onDelete, onClose 
                 value={form.area}
                 onChange={update('area')}
                 placeholder={t('admin.field_area_placeholder')}
+              />
+            </div>
+          </div>
+
+          {/* Russian translation — optional */}
+          <div className="form-section-h">
+            🌐 תרגום לרוסית (אופציונלי — אם ריק האתר ברוסית יציג עברית)
+          </div>
+          <div className="form-grid">
+            <div className="form-field">
+              <label htmlFor="city_ru">עיר (רוסית)</label>
+              <input
+                id="city_ru"
+                type="text"
+                value={form.city_ru}
+                onChange={update('city_ru')}
+                placeholder="например: Хайфа"
+              />
+            </div>
+            <div className="form-field">
+              <label htmlFor="type_ru">סוג נכס (רוסית)</label>
+              <input
+                id="type_ru"
+                type="text"
+                value={form.type_ru}
+                onChange={update('type_ru')}
+                placeholder="например: квартира"
               />
             </div>
           </div>
