@@ -44,6 +44,7 @@ export async function submitLead({ propertyId, fullName, phone, email, message }
 // ============================================================================
 
 function deriveLeadStatus(row) {
+  if (row.is_irrelevant) return 'irrelevant';
   if (row.is_archived) return 'closed';
   if (row.contacted_at) return 'contacted';
   return 'new';
@@ -109,16 +110,31 @@ export async function deleteLeadAdmin(leadId) {
 
 export async function updateLeadStatus(leadId, status) {
   const patch = {};
-  if (status === 'contacted') {
-    patch.contacted_at = new Date().toISOString();
-    patch.is_read = true;
-    patch.is_archived = false;
-  } else if (status === 'closed') {
-    patch.is_archived = true;
-    patch.is_read = true;
-  } else if (status === 'new') {
-    patch.contacted_at = null;
-    patch.is_archived = false;
+  switch (status) {
+    case 'new':
+      patch.is_read = false;
+      patch.is_archived = false;
+      patch.is_irrelevant = false;
+      patch.contacted_at = null;
+      break;
+    case 'contacted':
+      patch.is_read = true;
+      patch.is_archived = false;
+      patch.is_irrelevant = false;
+      patch.contacted_at = new Date().toISOString();
+      break;
+    case 'closed':
+      patch.is_read = true;
+      patch.is_archived = true;
+      patch.is_irrelevant = false;
+      break;
+    case 'irrelevant':
+      patch.is_read = true;
+      patch.is_archived = false;
+      patch.is_irrelevant = true;
+      break;
+    default:
+      break;
   }
   const { error } = await supabase.from('leads').update(patch).eq('id', leadId);
   if (error) throw error;

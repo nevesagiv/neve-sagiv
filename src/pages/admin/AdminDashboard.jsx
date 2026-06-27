@@ -7,6 +7,7 @@ import {
   fetchAllLeadsAdmin,
   fetchAllPropertiesAdmin,
   updateLeadStatus,
+  deleteLeadAdmin,
   togglePropertyPublishedAdmin,
   savePropertyAdmin,
   deletePropertyAdmin,
@@ -112,6 +113,18 @@ export default function AdminDashboard() {
     };
   }, [leads, properties]);
 
+  // Lead delete — permanent
+  const deleteLead = async (id) => {
+    try {
+      await deleteLeadAdmin(id);
+      setSelectedLead(null);
+      await reloadLeads();
+    } catch (err) {
+      console.error('Failed to delete lead', err);
+      alert('שגיאה במחיקת הליד: ' + (err.message || err));
+    }
+  };
+
   // Lead update (status change) — async, writes to Supabase
   const updateLead = async (id, patch) => {
     // Optimistic UI
@@ -176,9 +189,15 @@ export default function AdminDashboard() {
     setShowPropertyForm(true);
   };
 
-  // CSV export
+  // CSV export — Hebrew headers + BOM so Excel reads UTF-8 correctly
   const exportLeadsCsv = () => {
-    const headers = ['Date', 'Name', 'Phone', 'Email', 'Property', 'Status', 'Message', 'Trustee', 'TrusteePhone'];
+    const STATUS_HE = {
+      new: 'חדש',
+      contacted: 'טופל',
+      closed: 'סגור',
+      irrelevant: 'לא רלוונטי',
+    };
+    const headers = ['תאריך', 'שם', 'טלפון', 'מייל', 'נכס', 'סטטוס', 'הודעה', 'שם עו"ד/כונס', 'טלפון עו"ד'];
     const esc = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
     const rows = [headers.join(',')];
     for (const l of leads) {
@@ -188,13 +207,15 @@ export default function AdminDashboard() {
         l.phone,
         l.email,
         l.property_label,
-        l.status,
+        STATUS_HE[l.status] || l.status,
         l.message || '',
         l.trustee_name || '',
         l.trustee_phone || '',
       ].map(esc).join(','));
     }
-    const blob = new Blob([rows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+    // ﻿ (BOM) tells Excel this CSV is UTF-8 → Hebrew renders correctly
+    const csv = '﻿' + rows.join('\r\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -282,6 +303,7 @@ export default function AdminDashboard() {
         lead={selectedLead}
         onClose={() => setSelectedLead(null)}
         onUpdateStatus={(status) => updateLead(selectedLead.id, { status })}
+        onDelete={deleteLead}
       />
 
       {showPropertyForm && (

@@ -11,12 +11,18 @@ function formatDate(iso) {
   });
 }
 
-export default function LeadDetailModal({ lead, onClose, onUpdateStatus }) {
+export default function LeadDetailModal({ lead, onClose, onUpdateStatus, onDelete }) {
   const { t } = useTranslation();
   if (!lead) return null;
 
   const copyPhone = () => {
     navigator.clipboard?.writeText(lead.phone);
+  };
+
+  const handleDelete = () => {
+    if (window.confirm(`למחוק לצמיתות את הליד של ${lead.name}?\n\nפעולה זו לא ניתנת לביטול. אם זה ליד שכבר טופל, עדיף לסמן "סגור" במקום למחוק.`)) {
+      onDelete?.(lead.id);
+    }
   };
 
   return (
@@ -92,12 +98,12 @@ export default function LeadDetailModal({ lead, onClose, onUpdateStatus }) {
         <div className="admin-modal-actions">
           {lead.status !== 'contacted' && (
             <button className="admin-btn-primary" onClick={() => onUpdateStatus('contacted')}>
-              סמן כחזרתי
+              סמן כטופל
             </button>
           )}
           {lead.status !== 'new' && (
             <button className="admin-btn-ghost" onClick={() => onUpdateStatus('new')}>
-              החזר ל-"חדש"
+              החזר לחדש
             </button>
           )}
           {lead.status !== 'closed' && (
@@ -105,9 +111,19 @@ export default function LeadDetailModal({ lead, onClose, onUpdateStatus }) {
               סגור
             </button>
           )}
+          {lead.status !== 'irrelevant' && (
+            <button className="admin-btn-ghost" onClick={() => onUpdateStatus('irrelevant')}>
+              לא רלוונטי
+            </button>
+          )}
           <button className="admin-btn-ghost" onClick={copyPhone}>
             העתק טלפון
           </button>
+          {onDelete && (
+            <button className="admin-btn-danger" onClick={handleDelete}>
+              מחק לצמיתות
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -156,6 +156,8 @@
     "search_properties": "חיפוש לפי עיר, רחוב או סוג...",
     "filter_status_all": "כל הסטטוסים",
     "filter_status_new": "חדש",
+    "filter_status_contacted": "טופל",
+    "filter_status_closed": "סגור",
     "filter_status_called": "חזרתי",
     "filter_status_cold": "לא רלוונטי",
     "filter_date_all": "כל התאריכים",
