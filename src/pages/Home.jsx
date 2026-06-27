@@ -7,7 +7,6 @@ import { useCountUp } from '../hooks/useCountUp.js';
 import { useScrollReveal } from '../hooks/useScrollReveal.js';
 import PropertyCard from '../components/PropertyCard.jsx';
 import LeadModal from '../components/LeadModal.jsx';
-import RecentActivityBar from '../components/RecentActivityBar.jsx';
 import {
   IconShield,
   IconScroll,
@@ -99,8 +98,6 @@ export default function Home() {
 
   return (
     <>
-      <RecentActivityBar />
-
       {/* HERO */}
       <section className="hero">
         <div className="hero-glow" aria-hidden="true" />
