@@ -39,14 +39,10 @@ export default function Landing() {
   const [honeypot, setHoneypot] = useState('');
   const openedAtRef = useRef(Date.now());
 
-  const [valueRef, valueVisible] = useScrollReveal();
-  const [processRef, processVisible] = useScrollReveal();
-  const [whyRef, whyVisible] = useScrollReveal();
   const [faqRef, faqVisible] = useScrollReveal();
-  const [ctaRef, ctaVisible] = useScrollReveal();
 
   useEffect(() => {
-    document.title = 'נווה שגיב | השקעה בנכסים ממכרזים | טיפול מקצועי A עד Z';
+    document.title = 'נווה שגיב | נכסים ממכרזים במחיר נמוך מהשוק';
     let metaDesc = document.querySelector('meta[name="description"]');
     if (!metaDesc) {
       metaDesc = document.createElement('meta');
@@ -55,7 +51,7 @@ export default function Landing() {
     }
     metaDesc.setAttribute(
       'content',
-      'נכסים ממכרזים במחיר נמוך מהשוק. טיפול מקצועי מהבדיקה ועד למפתח. השאירו פרטים ונחזור תוך 24 שעות.'
+      'נכסים ממכרזים במחיר נמוך מהשוק. השאירו פרטים ונחזור אליכם תוך 24 שעות.'
     );
 
     // Track UTM source for analytics later
@@ -143,19 +139,19 @@ export default function Landing() {
         <div className="landing-hero-glow" aria-hidden="true" />
         <div className="landing-hero-inner">
           <div className="landing-hero-content">
-            <span className="landing-hero-tag">📍 השקעה חכמה. טיפול מקצועי.</span>
+            <span className="landing-hero-tag">📍 נכסים ממכרזים ומכינוסי נכסים</span>
             <h1 className="landing-hero-title">
-              נכסים ממכרזים במחיר נמוך מהשוק
-              <span className="landing-hero-em">לפי בדיקה מקצועית שלנו</span>
+              נכסים במחיר נמוך מהשוק.
+              <span className="landing-hero-em">מבחר בכל הארץ.</span>
             </h1>
             <p className="landing-hero-sub">
-              לרוב הציבור אין גישה לעולם של מכרזים מכינוס נכסים, מנהלי עזבונות וכדומה. מורכבות משפטית, חוסר וודאות, וסיכון לטעויות יקרות.
+              בכינוסי נכסים ובמכרזי בית משפט מתפרסמים נכסים במחיר נמוך משמעותית מהשוק. אנחנו מפרסמים את המבחר האחרון כאן.
               <br />
-              <strong>אצלנו תקבלו טיפול מלא מהבדיקה ועד למפתח, בלי הפתעות.</strong>
+              <strong>השאירו פרטים ונחזור אליכם עם פרטים מלאים.</strong>
             </p>
             <ul className="landing-hero-bullets">
-              <li><CheckIcon /> בדיקה מקצועית של כל נכס לפני הצגה</li>
-              <li><CheckIcon /> אפס עמלות מקדמיות. תשלום רק על הצלחה</li>
+              <li><CheckIcon /> עשרות נכסים פעילים בכל הארץ</li>
+              <li><CheckIcon /> מחירים משמעותית נמוכים מהשוק</li>
               <li><CheckIcon /> חזרה אישית תוך 24 שעות</li>
             </ul>
           </div>
@@ -259,88 +255,6 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* VALUE PROPS — replaces stats */}
-      <section
-        ref={valueRef}
-        className={`landing-value reveal ${valueVisible ? 'is-visible' : ''}`}
-      >
-        <div className="landing-container">
-          <h2 className="landing-section-title">3 סיבות שמשקיעים בוחרים בנו</h2>
-          <div className="landing-value-grid">
-            <ValueCard
-              icon="💰"
-              title="מחיר נמוך מהשוק"
-              desc="במכרזים, נכסים יוצאים לעיתים קרובות 20-40% מתחת לשווי שוק. תפקידנו הוא לזהות איזה נכס באמת שווה את ההצעה."
-            />
-            <ValueCard
-              icon="💼"
-              title="אפס עמלה מראש"
-              desc='אנחנו לא לוקחים שקל מקדמה. הסיכון עלינו. אם לא רכשתם את הנכס, לא שילמתם. תשלום רק על הצלחה, אחרי שהמפתח אצלכם.'
-            />
-            <ValueCard
-              icon="🛡️"
-              title="שקיפות מלאה"
-              desc="לפני המכרז אתם יודעים בדיוק מה אתם קונים: סטטוס משפטי, חובות, שעבודים, מצב פיזי. בלי הפתעות אחרי הקנייה."
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* HOW IT WORKS — 3 steps */}
-      <section
-        ref={processRef}
-        className={`landing-process reveal ${processVisible ? 'is-visible' : ''}`}
-      >
-        <div className="landing-container">
-          <h2 className="landing-section-title landing-section-title-light">איך זה עובד ב-3 צעדים פשוטים</h2>
-          <div className="landing-process-grid">
-            <ProcessCard
-              n={1}
-              title="אתם משאירים פרטים"
-              desc="טופס קצר בדף הזה. שיחה ראשונית של עד 20 דקות, ללא עלות וללא התחייבות."
-            />
-            <ProcessCard
-              n={2}
-              title="אנחנו בודקים נכסים מתאימים"
-              desc="לפי התקציב והאזור שלכם, אנחנו מסננים את כל הנכסים שזמינים במכרזים ומציגים לכם רק את הרלוונטיים."
-            />
-            <ProcessCard
-              n={3}
-              title="לצידכם עד למפתח"
-              desc="הגשת הצעה, ניצחון במכרז, חתימה, רישום. אנחנו לצידכם בכל שלב, בלי הפתעות ולא לבד. בנוסף, אנחנו מאפשרים לכם גישה לייעוץ עם שמאי מקרקעין מקצועיים, בתשלום נפרד."
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* WHY US */}
-      <section
-        ref={whyRef}
-        className={`landing-why reveal ${whyVisible ? 'is-visible' : ''}`}
-      >
-        <div className="landing-container">
-          <h2 className="landing-section-title">למה דווקא נווה שגיב?</h2>
-          <div className="landing-why-grid">
-            <WhyCard
-              title="התמחות ייעודית"
-              desc={'לא סוכן נדל"ן רגיל. אנחנו מתמחים אך ורק במכרזים, מכירים את הכונסים, את עורכי הדין, ואת מערכת המכרזים.'}
-            />
-            <WhyCard
-              title="יחס אישי"
-              desc="כל לקוח מקבל יחס אישי, פנים אל פנים. לא צ'אט-בוט, לא נציג מתחלף, אדם אחד מהתחלה ועד הסוף."
-            />
-            <WhyCard
-              title="גישה לנכסים בלעדיים"
-              desc="חלק מהנכסים שאנחנו מציעים זמינים לפני שמגיעים לציבור הרחב, דרך קשרים בתחום."
-            />
-            <WhyCard
-              title="תשלום על הצלחה"
-              desc="אנחנו לא לוקחים שקל מקדמה. רק כשהמפתח אצלכם, אז משלמים. הסיכון על המתווך."
-            />
-          </div>
-        </div>
-      </section>
-
       {/* FAQ */}
       <section
         ref={faqRef}
@@ -369,25 +283,6 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* FINAL CTA */}
-      <section
-        id="landing-final-cta"
-        ref={ctaRef}
-        className={`landing-final reveal ${ctaVisible ? 'is-visible' : ''}`}
-      >
-        <div className="landing-container landing-container-narrow">
-          <h2 className="landing-final-title">מוכנים להתחיל?</h2>
-          <p className="landing-final-sub">
-            השקעה בנכסים יכולה להיות הצעד הכי חכם שתעשו השנה, אם תעשו אותו נכון.
-            <br />
-            השאירו פרטים עכשיו, ונחזור אליכם תוך 24 שעות.
-          </p>
-          <button type="button" className="landing-final-btn" onClick={scrollToForm}>
-            השאירו פרטים עכשיו →
-          </button>
-        </div>
-      </section>
-
       {/* Mini footer — no nav */}
       <footer className="landing-footer">
         <div className="landing-container">
@@ -398,48 +293,10 @@ export default function Landing() {
   );
 }
 
-function ValueCard({ icon, title, desc }) {
-  return (
-    <div className="landing-value-card">
-      <div className="landing-value-icon">{icon}</div>
-      <h3>{title}</h3>
-      <p>{desc}</p>
-    </div>
-  );
-}
-
-function ProcessCard({ n, title, desc }) {
-  return (
-    <div className="landing-process-card">
-      <div className="landing-process-num">{n}</div>
-      <h3>{title}</h3>
-      <p>{desc}</p>
-    </div>
-  );
-}
-
-function WhyCard({ title, desc }) {
-  return (
-    <div className="landing-why-card">
-      <div className="landing-why-check">✓</div>
-      <h3>{title}</h3>
-      <p>{desc}</p>
-    </div>
-  );
-}
-
 function CheckIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
       <path d="M5 13l4 4L19 7" />
-    </svg>
-  );
-}
-
-function PhoneIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
     </svg>
   );
 }

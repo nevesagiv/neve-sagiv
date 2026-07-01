@@ -7,17 +7,6 @@ import { useCountUp } from '../hooks/useCountUp.js';
 import { useScrollReveal } from '../hooks/useScrollReveal.js';
 import PropertyCard from '../components/PropertyCard.jsx';
 import LeadModal from '../components/LeadModal.jsx';
-import {
-  IconShield,
-  IconScroll,
-  IconSearch,
-  IconChat,
-  IconBalance,
-  IconGlobe,
-  IconChart,
-  IconUsers,
-  IconArrowDown,
-} from '../components/Icons.jsx';
 import './Home.css';
 
 export default function Home() {
@@ -81,19 +70,12 @@ export default function Home() {
     document.getElementById('listings')?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const scrollToProcess = () => {
-    document.getElementById('process')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   // Animated counters for hero stats
   const propertyCount = useCountUp(publicProperties.length, { duration: 1400 });
   const citiesCount = useCountUp(cities.length, { duration: 1600 });
-  const servicePct = useCountUp(100, { duration: 1800 });
 
   // Scroll-reveal refs for each section
   const [listingsRef, listingsVisible] = useScrollReveal();
-  const [processRef, processVisible] = useScrollReveal();
-  const [valueRef, valueVisible] = useScrollReveal();
   const [ctaRef, ctaVisible] = useScrollReveal();
 
   return (
@@ -112,10 +94,6 @@ export default function Home() {
             <button className="btn-hero-primary" onClick={scrollToListings}>
               {t('home.hero_cta_primary')}
             </button>
-            <button className="btn-hero-secondary" onClick={scrollToProcess}>
-              <span>{t('home.hero_cta_secondary')}</span>
-              <IconArrowDown width={18} height={18} strokeWidth={2.2} />
-            </button>
           </div>
           <div className="hero-stats">
             <div className="hero-stat">
@@ -126,11 +104,6 @@ export default function Home() {
             <div className="hero-stat">
               <div className="hero-stat-num">{citiesCount}</div>
               <div className="hero-stat-label">{t('home.stat_cities')}</div>
-            </div>
-            <div className="hero-stat-divider" />
-            <div className="hero-stat">
-              <div className="hero-stat-num">{servicePct}%</div>
-              <div className="hero-stat-label">{t('home.stat_service')}</div>
             </div>
           </div>
         </div>
@@ -223,45 +196,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PROCESS STEPS */}
-      <section
-        ref={processRef}
-        className={`process-section reveal ${processVisible ? 'is-visible' : ''}`}
-        id="process"
-      >
-        <div className="container">
-          <div className="section-head">
-            <span className="section-tag">{t('home.process_tag')}</span>
-            <h2 className="section-title">{t('home.process_title')}</h2>
-          </div>
-          <div className="process-grid">
-            <ProcessStep n={1} icon={<IconSearch />} title={t('home.process_1_t')} desc={t('home.process_1_d')} />
-            <ProcessStep n={2} icon={<IconChat />} title={t('home.process_2_t')} desc={t('home.process_2_d')} />
-            <ProcessStep n={3} icon={<IconScroll />} title={t('home.process_3_t')} desc={t('home.process_3_d')} />
-            <ProcessStep n={4} icon={<IconBalance />} title={t('home.process_4_t')} desc={t('home.process_4_d')} />
-          </div>
-        </div>
-      </section>
-
-      {/* VALUE PROPS (Why Us) */}
-      <section
-        ref={valueRef}
-        className={`value-section reveal ${valueVisible ? 'is-visible' : ''}`}
-      >
-        <div className="container">
-          <div className="section-head section-head-light">
-            <span className="section-tag section-tag-light">{t('home.value_tag')}</span>
-            <h2 className="section-title section-title-light">{t('home.value_title')}</h2>
-          </div>
-          <div className="value-grid">
-            <ValueItem icon={<IconChart />} title={t('home.value_1_t')} desc={t('home.value_1_d')} />
-            <ValueItem icon={<IconGlobe />} title={t('home.value_2_t')} desc={t('home.value_2_d')} />
-            <ValueItem icon={<IconShield />} title={t('home.value_3_t')} desc={t('home.value_3_d')} />
-            <ValueItem icon={<IconUsers />} title={t('home.value_4_t')} desc={t('home.value_4_d')} />
-          </div>
-        </div>
-      </section>
-
       {/* FINAL CTA */}
       <section
         ref={ctaRef}
@@ -286,23 +220,3 @@ export default function Home() {
   );
 }
 
-function ProcessStep({ n, icon, title, desc }) {
-  return (
-    <div className="process-step">
-      <div className="process-step-num">0{n}</div>
-      <div className="process-step-icon">{icon}</div>
-      <h3 className="process-step-title">{title}</h3>
-      <p className="process-step-desc">{desc}</p>
-    </div>
-  );
-}
-
-function ValueItem({ icon, title, desc }) {
-  return (
-    <div className="value-item">
-      <div className="value-icon">{icon}</div>
-      <h3 className="value-title">{title}</h3>
-      <p className="value-desc">{desc}</p>
-    </div>
-  );
-}
