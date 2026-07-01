@@ -131,6 +131,11 @@
   backdrop-filter: blur(8px);
 }
 
+.hero-stat {
+  min-width: 120px;
+  text-align: center;
+}
+
 .hero-stat-divider {
   width: 1px;
   height: 36px;
