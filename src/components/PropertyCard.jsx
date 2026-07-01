@@ -23,7 +23,7 @@ export default function PropertyCard({ property, onInterested }) {
         <div className="card-attrs">
           <div className="attr">
             <div className="attr-label">{t('card.rooms')}</div>
-            <div className="attr-value">{property.rooms ?? '—'}</div>
+            <div className="attr-value">{property.rooms > 0 ? property.rooms : '—'}</div>
           </div>
           <div className="attr">
             <div className="attr-label">{t('card.area')}</div>
