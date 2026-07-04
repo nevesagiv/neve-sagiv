@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-export function useScrollReveal({ threshold = 0.15, rootMargin = '0px 0px -60px 0px' } = {}) {
+export function useScrollReveal({ threshold = 0, rootMargin = '0px 0px -60px 0px' } = {}) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
 
