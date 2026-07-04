@@ -98,7 +98,10 @@ export default function PropertyFormModal({ property, onSave, onDelete, onClose 
                 id="street"
                 type="text"
                 value={form.street}
-                onChange={update('street')}
+                onChange={(e) => {
+                  const stripped = e.target.value.replace(/\p{N}+/gu, '');
+                  setForm((prev) => ({ ...prev, street: stripped }));
+                }}
                 placeholder={t('admin.field_street_placeholder')}
               />
             </div>
