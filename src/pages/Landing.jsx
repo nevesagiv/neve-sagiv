@@ -135,6 +135,23 @@ export default function Landing() {
         </div>
       </header>
 
+      {/* APARTMENT HERO */}
+      <section className="landing-apartment-hero">
+        <img src="/apartment-hero.webp" alt="Dream Apartment" className="landing-apartment-image" />
+        <div className="landing-apartment-overlay" />
+        <div className="landing-apartment-content">
+          <h1 className="landing-apartment-title">
+            רוצים לקנות את דירת חלומותיכם במחיר נמוך מהשוק?
+          </h1>
+          <p className="landing-apartment-subtitle">
+            גלו נכסים מדהימים בהנחות משמעותיות בזכות רכישה דרך מכרזים ומכינוסי נכסים.
+          </p>
+          <button type="button" className="landing-cta-btn" onClick={scrollToForm}>
+            בואו ניצור קשר
+          </button>
+        </div>
+      </section>
+
       {/* HERO with lead form */}
       <section className="landing-hero">
         <div className="landing-hero-glow" aria-hidden="true" />
