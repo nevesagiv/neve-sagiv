@@ -213,21 +213,21 @@
 
 @media (max-width: 768px) {
   .landing-apartment-hero {
-    min-height: 320px;
+    min-height: 280px;
   }
 
   .landing-apartment-title {
-    font-size: 28px;
-    margin: 0 0 16px 0;
+    font-size: 26px;
+    margin: 0 0 12px 0;
   }
 
   .landing-apartment-subtitle {
-    font-size: 15px;
-    margin: 0 0 24px 0;
+    font-size: 14px;
+    margin: 0 0 20px 0;
   }
 
   .landing-apartment-content {
-    padding: 32px 16px;
+    padding: 24px 12px;
   }
 
   .landing-lang-switcher {
@@ -240,19 +240,55 @@
   }
 
   .landing-cta-btn {
-    padding: 14px 24px;
-    font-size: 15px;
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-apartment-hero {
+    min-height: 240px;
+  }
+
+  .landing-apartment-title {
+    font-size: 22px;
+    margin: 0 0 10px 0;
+  }
+
+  .landing-apartment-subtitle {
+    font-size: 13px;
+    margin: 0 0 16px 0;
+  }
+
+  .landing-apartment-content {
+    padding: 20px 10px;
+  }
+
+  .landing-cta-btn {
+    padding: 11px 18px;
+    font-size: 13px;
+  }
+
+  .landing-brand-inner {
+    flex-wrap: wrap;
+  }
+
+  .landing-lang-switcher {
+    order: 3;
+    width: 100%;
+    margin-left: 0;
+    margin-top: 8px;
   }
 }
 
 /* ===== CONTACT SECTION ===== */
 .landing-contact {
   background: #fafbfd;
-  padding: 48px 16px;
-  min-height: 100vh;
+  padding: 32px 14px;
+  min-height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .landing-contact-inner {
@@ -262,19 +298,19 @@
 }
 
 .landing-contact-inner h2 {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 800;
   text-align: center;
-  margin: 0 0 12px 0;
+  margin: 0 0 10px 0;
   color: #0d1d33;
 }
 
 .landing-contact-sub {
   text-align: center;
   color: #8a93a3;
-  margin: 0 0 28px 0;
-  font-size: 14px;
-  line-height: 1.6;
+  margin: 0 0 24px 0;
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 @media (min-width: 769px) {
@@ -396,11 +432,18 @@
 /* ===== FORM ===== */
 .landing-form {
   background: #fff;
-  border-radius: 20px;
-  padding: 24px 18px;
+  border-radius: 16px;
+  padding: 20px 14px;
   box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.3);
   color: #0d1d33;
   border: 1px solid rgba(212, 160, 23, 0.2);
+}
+
+@media (min-width: 480px) {
+  .landing-form {
+    border-radius: 20px;
+    padding: 24px 18px;
+  }
 }
 
 @media (min-width: 640px) {
@@ -424,7 +467,13 @@
 }
 
 .landing-form-field {
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+}
+
+@media (min-width: 640px) {
+  .landing-form-field {
+    margin-bottom: 16px;
+  }
 }
 
 .landing-form-field label {
@@ -1003,7 +1052,13 @@
 .landing-footer {
   background: #0d1d33;
   color: #8a93a3;
-  padding: 28px 0;
+  padding: 20px 0;
+}
+
+@media (min-width: 640px) {
+  .landing-footer {
+    padding: 28px 0;
+  }
 }
 
 .landing-footer-content {
