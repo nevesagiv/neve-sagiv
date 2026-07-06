@@ -1,16 +1,35 @@
 /* ===== LANDING PAGE — paid-ads optimized ===== */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 .landing-page {
   font-family: 'Heebo', system-ui, sans-serif;
   color: #0d1d33;
   line-height: 1.6;
   min-height: 100vh;
   background: #fafbfd;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .landing-container {
   max-width: 1080px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .landing-container {
+    padding: 0 24px;
+  }
 }
 
 .landing-container-narrow {
@@ -40,11 +59,21 @@
 .landing-brand-inner {
   max-width: 1080px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+@media (min-width: 640px) {
+  .landing-brand-inner {
+    padding: 0 24px;
+    gap: 16px;
+  }
 }
 
 .landing-brand-logo {
@@ -295,6 +324,14 @@
   max-width: 600px;
   margin: 0 auto;
   width: 100%;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .landing-contact-inner {
+    padding: 0;
+  }
 }
 
 .landing-contact-inner h2 {
@@ -1064,8 +1101,16 @@
 .landing-footer-content {
   max-width: 1080px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 16px;
   text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .landing-footer-content {
+    padding: 0 24px;
+  }
 }
 
 .landing-footer p {
