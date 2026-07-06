@@ -249,7 +249,7 @@ export default function Landing() {
             onClick={toggleLanguage}
             aria-label={lang === 'he' ? 'Switch to Russian' : 'Switch to Hebrew'}
           >
-            {lang === 'he' ? 'Russian' : 'Hebrew'}
+            {lang === 'he' ? 'Русский' : 'עברית'}
           </button>
         </div>
       </header>
