@@ -33,7 +33,7 @@ const FAQ_ITEMS = [
   },
 ];
 
-export default function Landing2() {
+export default function Landing() {
   const [form, setForm] = useState({ fullName: '', phone: '', email: '', message: '' });
   const [status, setStatus] = useState('idle'); // idle | submitting | success | error
   const [openFaq, setOpenFaq] = useState(0);
@@ -124,7 +124,7 @@ export default function Landing2() {
   }
 
   return (
-    <div className="landing-page" dir="rtl">
+    <div className="landing-page">
       {/* Minimal branding bar — no nav */}
       <header className="landing-brand">
         <div className="landing-brand-inner">
