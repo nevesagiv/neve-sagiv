@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout.jsx';
 import Home from './pages/Home.jsx';
 import Landing from './pages/Landing.jsx';
+import Landing2 from './pages/Landing2.jsx';
 import ThankYou from './pages/ThankYou.jsx';
 import Privacy from './pages/Privacy.jsx';
 import Accessibility from './pages/Accessibility.jsx';
@@ -19,8 +20,9 @@ export default function App() {
       <Route path="/admin" element={<AdminLogin />} />
       <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
-      {/* Landing page for paid ads (no Layout - no header/footer) */}
+      {/* Landing pages for paid ads (no Layout - no header/footer) */}
       <Route path="/start" element={<Landing />} />
+      <Route path="/start2" element={<Landing2 />} />
 
       {/* Public routes */}
       <Route element={<Layout />}>
