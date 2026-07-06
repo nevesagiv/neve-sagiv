@@ -131,7 +131,7 @@
 /* ===== APARTMENT HERO ===== */
 .landing-apartment-hero {
   position: relative;
-  min-height: 500px;
+  min-height: 400px;
   background: #000;
   overflow: hidden;
   display: flex;
@@ -155,7 +155,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(13, 29, 51, 0.6) 0%, rgba(13, 29, 51, 0.4) 50%, rgba(212, 160, 23, 0.15) 100%);
+  background: linear-gradient(135deg, rgba(13, 29, 51, 0.65) 0%, rgba(13, 29, 51, 0.5) 50%, rgba(212, 160, 23, 0.2) 100%);
 }
 
 .landing-apartment-content {
@@ -163,24 +163,26 @@
   z-index: 10;
   max-width: 700px;
   text-align: center;
-  padding: 48px 24px;
+  padding: 40px 20px;
   color: #fff;
 }
 
 .landing-apartment-title {
   font-size: 44px;
   font-weight: 800;
-  margin: 0 0 24px 0;
+  margin: 0 0 20px 0;
   letter-spacing: -0.5px;
   line-height: 1.2;
+  word-break: break-word;
 }
 
 .landing-apartment-subtitle {
   font-size: 18px;
   font-weight: 400;
-  margin: 0 0 32px 0;
+  margin: 0 0 28px 0;
   opacity: 0.95;
   line-height: 1.6;
+  word-break: break-word;
 }
 
 .landing-cta-btn {
@@ -193,7 +195,10 @@
   padding: 16px 32px;
   cursor: pointer;
   box-shadow: 0 8px 24px -6px rgba(212, 160, 23, 0.6);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .landing-cta-btn:hover {
@@ -201,13 +206,28 @@
   box-shadow: 0 12px 32px -6px rgba(212, 160, 23, 0.7);
 }
 
+.landing-cta-btn:active {
+  opacity: 0.9;
+  transform: translateY(0);
+}
+
 @media (max-width: 768px) {
+  .landing-apartment-hero {
+    min-height: 320px;
+  }
+
   .landing-apartment-title {
-    font-size: 32px;
+    font-size: 28px;
+    margin: 0 0 16px 0;
   }
 
   .landing-apartment-subtitle {
-    font-size: 16px;
+    font-size: 15px;
+    margin: 0 0 24px 0;
+  }
+
+  .landing-apartment-content {
+    padding: 32px 16px;
   }
 
   .landing-lang-switcher {
@@ -216,23 +236,33 @@
 
   .landing-lang-btn {
     padding: 6px 10px;
-    font-size: 12px;
+    font-size: 11px;
+  }
+
+  .landing-cta-btn {
+    padding: 14px 24px;
+    font-size: 15px;
   }
 }
 
 /* ===== CONTACT SECTION ===== */
 .landing-contact {
   background: #fafbfd;
-  padding: 60px 24px;
+  padding: 48px 16px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .landing-contact-inner {
   max-width: 600px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .landing-contact-inner h2 {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 800;
   text-align: center;
   margin: 0 0 12px 0;
@@ -242,9 +272,25 @@
 .landing-contact-sub {
   text-align: center;
   color: #8a93a3;
-  margin: 0 0 32px 0;
-  font-size: 15px;
+  margin: 0 0 28px 0;
+  font-size: 14px;
   line-height: 1.6;
+}
+
+@media (min-width: 769px) {
+  .landing-contact {
+    padding: 60px 24px;
+    min-height: auto;
+  }
+
+  .landing-contact-inner h2 {
+    font-size: 32px;
+  }
+
+  .landing-contact-sub {
+    margin: 0 0 32px 0;
+    font-size: 15px;
+  }
 }
 
 /* ===== HERO ===== */
@@ -350,11 +396,18 @@
 /* ===== FORM ===== */
 .landing-form {
   background: #fff;
-  border-radius: 22px;
-  padding: 32px;
-  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  padding: 24px 18px;
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.3);
   color: #0d1d33;
   border: 1px solid rgba(212, 160, 23, 0.2);
+}
+
+@media (min-width: 640px) {
+  .landing-form {
+    border-radius: 22px;
+    padding: 32px;
+  }
 }
 
 .landing-form-head h2 {
@@ -386,7 +439,7 @@
 .landing-form-field textarea {
   width: 100%;
   font: inherit;
-  font-size: 15px;
+  font-size: 16px;
   padding: 13px 16px;
   border: 1.5px solid #e3e9f3;
   border-radius: 10px;
@@ -394,6 +447,16 @@
   color: #0d1d33;
   transition: border-color 0.2s ease, background 0.2s ease;
   box-sizing: border-box;
+  -webkit-appearance: none;
+  appearance: none;
+  min-height: 44px;
+}
+
+@media (min-width: 640px) {
+  .landing-form-field input,
+  .landing-form-field textarea {
+    font-size: 15px;
+  }
 }
 
 .landing-form-field input:focus,
@@ -418,16 +481,25 @@
   font-weight: 800;
   border: none;
   border-radius: 12px;
-  padding: 16px;
+  padding: 16px 12px;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
   box-shadow: 0 6px 18px -6px rgba(212, 160, 23, 0.6);
   margin-top: 6px;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  min-height: 48px;
 }
 
 .landing-form-submit:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 10px 24px -6px rgba(212, 160, 23, 0.7);
+}
+
+.landing-form-submit:active:not(:disabled) {
+  transform: translateY(0);
+  opacity: 0.95;
 }
 
 .landing-form-submit:disabled {
@@ -464,16 +536,27 @@
   font-size: 16px;
   font-weight: 800;
   text-decoration: none;
+  border: none;
   border-radius: 12px;
   padding: 15px 16px;
   box-sizing: border-box;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
   box-shadow: 0 6px 18px -6px rgba(37, 211, 102, 0.6);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  min-height: 48px;
 }
 
 .landing-whatsapp-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 24px -6px rgba(37, 211, 102, 0.7);
+}
+
+.landing-whatsapp-btn:active {
+  transform: translateY(0);
+  opacity: 0.95;
 }
 
 .landing-whatsapp-btn svg {
@@ -484,18 +567,22 @@
 
 .landing-whatsapp-float {
   position: fixed;
-  bottom: 22px;
-  left: 22px;
+  bottom: 20px;
+  left: 20px;
   z-index: 90;
-  width: 58px;
-  height: 58px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   background: linear-gradient(135deg, #25d366 0%, #1da851 100%);
   color: #fff;
   display: grid;
   place-items: center;
   box-shadow: 0 8px 24px -4px rgba(37, 211, 102, 0.55);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .landing-whatsapp-float:hover {
@@ -503,9 +590,28 @@
   box-shadow: 0 12px 28px -4px rgba(37, 211, 102, 0.65);
 }
 
+.landing-whatsapp-float:active {
+  transform: scale(1.02);
+  opacity: 0.95;
+}
+
 .landing-whatsapp-float svg {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
+}
+
+@media (min-width: 640px) {
+  .landing-whatsapp-float {
+    width: 58px;
+    height: 58px;
+    bottom: 22px;
+    left: 22px;
+  }
+
+  .landing-whatsapp-float svg {
+    width: 30px;
+    height: 30px;
+  }
 }
 
 .landing-form-fine {
