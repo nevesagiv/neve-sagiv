@@ -78,6 +78,28 @@ body {
   overflow-x: hidden;
 }
 
+.landing-lang-toggle {
+  background: #f0f4f8;
+  border: 1px solid #d9e3ef;
+  color: #0d1d33;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.landing-lang-toggle:hover {
+  background: #e3e9f3;
+  border-color: #c0cee6;
+}
+
+.landing-lang-toggle:active {
+  transform: scale(0.97);
+}
+
 @media (min-width: 640px) {
   .landing-brand-inner {
     padding: 0 24px;
