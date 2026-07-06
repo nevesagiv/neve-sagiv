@@ -1,49 +1,32 @@
 import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { submitLead } from '../lib/supabase.js';
 import './Landing.css';
 
-// Spam protection — minimum seconds between page open and form submit.
 const MIN_SUBMIT_SECONDS = 3;
 const RATE_LIMIT_KEY = 'landing_last_submit';
 const RATE_LIMIT_HOURS = 1;
-
-// WhatsApp click-to-chat
 const WHATSAPP_PHONE = '972506666128';
-
-const WHATSAPP_MESSAGES = {
-  he: 'היי, הגעתי דרך אתר נווה שגיב. אני מעוניין בנכס במחיר נמוך',
-  ru: 'Привет, я пришел с сайта Neve Sagiv. Я заинтересован в недвижимости по низкой цене',
-};
+const WHATSAPP_HE = 'היי, הגעתי דרך אתר נווה שגיב. אני מעוניין בנכס במחיר נמוך';
 
 export default function Landing() {
-  const { t, i18n } = useTranslation();
-  const lang = i18n.language || 'he';
-
+  const [lang, setLang] = useState('he');
   const [form, setForm] = useState({ fullName: '', phone: '', email: '', message: '' });
   const [status, setStatus] = useState('idle');
   const [honeypot, setHoneypot] = useState('');
   const openedAtRef = useRef(Date.now());
 
-  const whatsappMessage = WHATSAPP_MESSAGES[lang] || WHATSAPP_MESSAGES.he;
-  const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(whatsappMessage)}`;
+  const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(WHATSAPP_HE)}`;
 
   useEffect(() => {
-    const titleKey = lang === 'ru' ? 'landing.seoTitleRu' : 'landing.seoTitleHe';
-    const descKey = lang === 'ru' ? 'landing.seoDescRu' : 'landing.seoDescHe';
-    document.title = t(titleKey) || 'Neve Sagiv | Properties from Auctions';
+    document.title = 'נווה שגיב | דירת חלומות במחיר נמוך מהשוק';
     let metaDesc = document.querySelector('meta[name="description"]');
     if (!metaDesc) {
       metaDesc = document.createElement('meta');
       metaDesc.setAttribute('name', 'description');
       document.head.appendChild(metaDesc);
     }
-    metaDesc.setAttribute('content', t(descKey) || 'Dream apartment at a lower price than the market');
-
-    const url = new URL(window.location.href);
-    const utm = url.searchParams.get('utm_source');
-    if (utm) sessionStorage.setItem('landing_utm', utm);
-  }, [lang, t]);
+    metaDesc.setAttribute('content', 'רוצים לקנות דירת חלומות במחיר נמוך מהשוק? גלו נכסים מדהימים');
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -100,34 +83,14 @@ export default function Landing() {
   }
 
   return (
-    <div className={`landing-page ${lang === 'ru' ? 'landing-ru' : 'landing-he'}`}>
+    <div className="landing-page">
       {/* Minimal branding bar */}
       <header className="landing-brand">
         <div className="landing-brand-inner">
-          <div className="landing-brand-left">
-            <a href="/" className="landing-brand-logo">
-              <span className="landing-brand-name">{lang === 'ru' ? 'Neve Sagiv' : 'נווה שגיב'}</span>
-              <span className="landing-brand-tag">{lang === 'ru' ? 'Консультации по торгам недвижимости' : 'ייעוץ בעסקאות מכרזים'}</span>
-            </a>
-          </div>
-          <div className="landing-lang-switcher">
-            <button
-              className={`landing-lang-btn ${lang === 'he' ? 'active' : ''}`}
-              onClick={() => i18n.changeLanguage('he')}
-              type="button"
-              aria-label="Hebrew"
-            >
-              עברית
-            </button>
-            <button
-              className={`landing-lang-btn ${lang === 'ru' ? 'active' : ''}`}
-              onClick={() => i18n.changeLanguage('ru')}
-              type="button"
-              aria-label="Russian"
-            >
-              Русский
-            </button>
-          </div>
+          <a href="/" className="landing-brand-logo">
+            <span className="landing-brand-name">נווה שגיב</span>
+            <span className="landing-brand-tag">ייעוץ בעסקאות מכרזים</span>
+          </a>
         </div>
       </header>
 
@@ -137,17 +100,13 @@ export default function Landing() {
         <div className="landing-apartment-overlay" />
         <div className="landing-apartment-content">
           <h1 className="landing-apartment-title">
-            {lang === 'ru'
-              ? 'Хотите купить квартиру мечты по цене ниже рыночной?'
-              : 'רוצים לקנות את דירת חלומותיכם במחיר נמוך מהשוק?'}
+            רוצים לקנות את דירת חלומותיכם במחיר נמוך מהשוק?
           </h1>
           <p className="landing-apartment-subtitle">
-            {lang === 'ru'
-              ? 'Найдите невероятную недвижимость на аукционах и торгах по сниженным ценам.'
-              : 'גלו נכסים מדהימים בהנחות משמעותיות בזכות רכישה דרך מכרזים ומכינוסי נכסים.'}
+            גלו נכסים מדהימים בהנחות משמעותיות בזכות רכישה דרך מכרזים ומכינוסי נכסים.
           </p>
           <button type="button" className="landing-cta-btn" onClick={scrollToForm}>
-            {lang === 'ru' ? 'Получить информацию' : 'בואו ניצור קשר'}
+            בואו ניצור קשר
           </button>
         </div>
       </section>
@@ -155,29 +114,25 @@ export default function Landing() {
       {/* Contact form */}
       <section className="landing-contact">
         <div className="landing-contact-inner">
-          <h2>{lang === 'ru' ? 'Свяжитесь с нами' : 'צור קשר איתנו'}</h2>
+          <h2>צור קשר איתנו</h2>
           <p className="landing-contact-sub">
-            {lang === 'ru'
-              ? 'Оставьте свои данные и узнайте о доступных объектах за 24 часа'
-              : 'השאיר פרטים ונשלח לך את הנכסים הרלוונטיים ביותר תוך 24 שעות'}
+            השאיר פרטים ונשלח לך את הנכסים הרלוונטיים ביותר תוך 24 שעות
           </p>
 
           <form className={`landing-form ${status === 'success' ? 'is-success' : ''}`} onSubmit={handleSubmit} noValidate>
             {status === 'success' ? (
               <div className="landing-form-success">
                 <div className="landing-form-success-icon">✓</div>
-                <h3>{lang === 'ru' ? 'Ваша заявка получена!' : 'קיבלנו את הפרטים שלך!'}</h3>
+                <h3>קיבלנו את הפרטים שלך!</h3>
                 <p>
-                  {lang === 'ru'
-                    ? 'Мы свяжемся с вами в течение 24 часов с информацией о подходящей недвижимости.'
-                    : 'נחזור אליך תוך 24 שעות עם רשימת הנכסים הרלוונטיים.'}
+                  נחזור אליך תוך 24 שעות עם רשימת הנכסים הרלוונטיים.
                 </p>
                 <button
                   type="button"
                   className="landing-form-success-back"
                   onClick={() => setStatus('idle')}
                 >
-                  {lang === 'ru' ? 'Оставить еще данные' : 'להשאיר פרטים נוספים'}
+                  להשאיר פרטים נוספים
                 </button>
               </div>
             ) : (
@@ -193,7 +148,7 @@ export default function Landing() {
                   style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', opacity: 0 }}
                 />
                 <div className="landing-form-field">
-                  <label htmlFor="landing-name">{lang === 'ru' ? 'Полное имя' : 'שם מלא'}</label>
+                  <label htmlFor="landing-name">שם מלא</label>
                   <input
                     id="landing-name"
                     type="text"
@@ -201,11 +156,11 @@ export default function Landing() {
                     required
                     value={form.fullName}
                     onChange={(e) => setForm((f) => ({ ...f, fullName: e.target.value }))}
-                    placeholder={lang === 'ru' ? 'Например: Иван Петров' : 'לדוגמה: דני כהן'}
+                    placeholder="לדוגמה: דני כהן"
                   />
                 </div>
                 <div className="landing-form-field">
-                  <label htmlFor="landing-phone">{lang === 'ru' ? 'Телефон' : 'טלפון'}</label>
+                  <label htmlFor="landing-phone">טלפון</label>
                   <input
                     id="landing-phone"
                     type="tel"
@@ -213,26 +168,24 @@ export default function Landing() {
                     required
                     value={form.phone}
                     onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-                    placeholder={lang === 'ru' ? '+7 (999) 123-45-67' : '050-1234567'}
+                    placeholder="050-1234567"
                   />
                 </div>
                 <div className="landing-form-field">
-                  <label htmlFor="landing-email">{lang === 'ru' ? 'Email (необязательно)' : 'אימייל (לא חובה)'}</label>
+                  <label htmlFor="landing-email">אימייל (לא חובה)</label>
                   <input
                     id="landing-email"
                     type="email"
                     autoComplete="email"
                     value={form.email}
                     onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                    placeholder={lang === 'ru' ? 'name@example.com' : 'name@example.com'}
+                    placeholder="name@example.com"
                     dir="ltr"
                   />
                 </div>
                 {status === 'error' && (
                   <div className="landing-form-error">
-                    {lang === 'ru'
-                      ? 'Что-то пошло не так. Пожалуйста, проверьте данные и попробуйте снова.'
-                      : 'משהו השתבש. ודאו שמילאתם שם וטלפון, ונסו שוב.'}
+                    משהו השתבש. ודאו שמילאתם שם וטלפון, ונסו שוב.
                   </div>
                 )}
                 <button
@@ -240,21 +193,19 @@ export default function Landing() {
                   className="landing-form-submit"
                   disabled={status === 'submitting'}
                 >
-                  {status === 'submitting'
-                    ? (lang === 'ru' ? 'Отправка...' : 'שולח...')
-                    : (lang === 'ru' ? 'Отправить запрос' : 'שלחו לי פרטים')}
+                  {status === 'submitting' ? 'שולח...' : 'שלחו לי פרטים'}
                 </button>
 
                 <div className="landing-form-or" aria-hidden="true">
-                  <span>{lang === 'ru' ? 'или' : 'או'}</span>
+                  <span>או</span>
                 </div>
                 <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="landing-whatsapp-btn">
                   <WhatsAppIcon />
-                  {lang === 'ru' ? 'Напишите в WhatsApp' : 'שלחו לנו הודעה בוואטסאפ'}
+                  שלחו לנו הודעה בוואטסאפ
                 </a>
 
                 <p className="landing-form-fine">
-                  🔒 {lang === 'ru' ? 'Ваши данные защищены и не будут распространяться.' : 'הפרטים שלכם לא ייחשפו לאיש. שיחה אחת בלבד.'}
+                  🔒 הפרטים שלכם לא ייחשפו לאיש. שיחה אחת בלבד.
                 </p>
               </>
             )}
@@ -268,8 +219,8 @@ export default function Landing() {
         target="_blank"
         rel="noopener noreferrer"
         className="landing-whatsapp-float"
-        aria-label={lang === 'ru' ? 'Связаться в WhatsApp' : 'צרו קשר בוואטסאפ'}
-        title={lang === 'ru' ? 'Связаться в WhatsApp' : 'צרו קשר בוואטסאפ'}
+        aria-label="צרו קשר בוואטסאפ"
+        title="צרו קשר בוואטסאפ"
       >
         <WhatsAppIcon />
       </a>
@@ -278,16 +229,14 @@ export default function Landing() {
       <footer className="landing-footer">
         <div className="landing-container">
           <div className="landing-footer-content">
-            <p>
-              © {lang === 'ru' ? 'Neve Sagiv • Консультации по недвижимости на торгах' : 'נווה שגיב • השקעות בנכסים ממכרזים'}
-            </p>
+            <p>© נווה שגיב • השקעות בנכסים ממכרזים</p>
             <div className="landing-footer-links">
-              <a href="/privacy">{lang === 'ru' ? 'Конфиденциальность' : 'פרטיות'}</a>
+              <a href="/privacy">פרטיות</a>
               <span className="landing-footer-sep">·</span>
-              <a href="/terms">{lang === 'ru' ? 'Условия использования' : 'תנאי שימוש'}</a>
+              <a href="/terms">תנאי שימוש</a>
               <span className="landing-footer-sep">·</span>
               <a href="https://www.neve-sagiv.co.il/" target="_blank" rel="noopener noreferrer">
-                {lang === 'ru' ? 'Основной сайт' : 'האתר הראשי'}
+                האתר הראשי
               </a>
             </div>
           </div>
