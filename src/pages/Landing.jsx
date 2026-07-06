@@ -100,7 +100,7 @@ export default function Landing() {
   }
 
   return (
-    <div className={`landing-page ${lang === 'ru' ? 'landing-ru' : 'landing-he'}`} dir={lang === 'ru' ? 'ltr' : 'rtl'}>
+    <div className={`landing-page ${lang === 'ru' ? 'landing-ru' : 'landing-he'}`}>
       {/* Minimal branding bar */}
       <header className="landing-brand">
         <div className="landing-brand-inner">
