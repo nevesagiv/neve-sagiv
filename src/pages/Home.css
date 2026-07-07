@@ -746,13 +746,11 @@
   .hero-video { opacity: 1; transform: scale(1.06); }
 }
 
-/* Mobile: skip the heavy video autoplay and lean on the gradient background */
+/* Mobile: keep the video (main traffic is Facebook mobile — hero must feel alive),
+   but shrink the hero and hide the scroll cue since thumb-scrolling is obvious */
 @media (max-width: 768px) {
   .hero {
     min-height: 560px;
-  }
-  .hero-video {
-    display: none;
   }
   .hero-scroll-cue {
     display: none;
