@@ -82,6 +82,19 @@ export default function Home() {
     <>
       {/* HERO */}
       <section className="hero">
+        <video
+          className="hero-video"
+          src="/videos/hero.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+        />
+        <div className="hero-video-overlay" aria-hidden="true" />
+        <div className="hero-vignette" aria-hidden="true" />
+        <div className="hero-grain" aria-hidden="true" />
         <div className="hero-glow" aria-hidden="true" />
         <div className="hero-inner">
           <span className="hero-tag">{t('home.hero_tag')}</span>
@@ -107,6 +120,14 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <button
+          type="button"
+          className="hero-scroll-cue"
+          onClick={scrollToListings}
+          aria-label={t('home.hero_cta_primary')}
+        >
+          <span className="hero-scroll-cue-dot" />
+        </button>
       </section>
 
       {/* LISTINGS */}
