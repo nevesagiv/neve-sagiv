@@ -11,7 +11,7 @@ const RATE_LIMIT_HOURS = 1;
 
 // WhatsApp click-to-chat — opens a chat with the message pre-filled
 const WHATSAPP_PHONE = '972506666128';
-const WHATSAPP_MESSAGE = 'היי, הגעתי דרך אתר נווה שגיב. אני מעוניין בנכס במחיר נמוך';
+const WHATSAPP_MESSAGE = 'שלום, הגעתי דרך אתר נווה שגיב. מחפש נכס במחיר אטרקטיבי — אשמח לפרטים.';
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
 const FAQ_ITEMS = [
