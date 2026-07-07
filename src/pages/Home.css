@@ -550,6 +550,107 @@
   gap: 24px;
 }
 
+/* =====================================================
+   FAQ
+   ===================================================== */
+.faq-section {
+  background: var(--cream);
+  padding: 90px 0;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.faq-item {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.faq-item:hover {
+  border-color: rgba(201, 165, 90, 0.35);
+}
+
+.faq-item.is-open {
+  border-color: rgba(201, 165, 90, 0.55);
+  box-shadow: 0 12px 32px -14px rgba(30, 58, 95, 0.25);
+}
+
+.faq-q {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  padding: 22px 26px;
+  font: inherit;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--navy);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  text-align: inherit;
+  transition: color 0.2s ease;
+}
+
+.faq-q:hover {
+  color: var(--gold);
+}
+
+.faq-icon {
+  width: 30px;
+  height: 30px;
+  background: rgba(201, 165, 90, 0.15);
+  color: var(--gold);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: transform 0.3s ease, background 0.25s ease, color 0.25s ease;
+}
+
+.faq-item.is-open .faq-icon {
+  transform: rotate(45deg);
+  background: var(--gold);
+  color: white;
+}
+
+/* Generous max-height so long RU answers on narrow mobile don't get
+   clipped — the recurring content-growth footgun. */
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+}
+
+.faq-item.is-open .faq-a {
+  max-height: 1000px;
+  padding: 0 26px 24px;
+}
+
+.faq-a p {
+  margin: 0;
+  font-size: 15.5px;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+@media (max-width: 540px) {
+  .faq-section { padding: 64px 0; }
+  .faq-q { padding: 18px 20px; font-size: 15.5px; }
+  .faq-item.is-open .faq-a { padding: 0 20px 20px; }
+}
+
 .empty-state {
   text-align: center;
   padding: 60px 20px;

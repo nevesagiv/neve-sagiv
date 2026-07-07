@@ -1,0 +1,73 @@
+/* Floating WhatsApp button — bottom-inline-end so it doesn't collide
+   with the accessibility widget on the opposite corner. Visible on every
+   public page via Layout. */
+.wa-float {
+  position: fixed;
+  bottom: 20px;
+  inset-inline-end: 20px;
+  z-index: 90;
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  background: #25d366;
+  color: #fff;
+  border-radius: 50%;
+  text-decoration: none;
+  box-shadow: 0 8px 22px -6px rgba(37, 211, 102, 0.55),
+              0 2px 6px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wa-float:hover {
+  transform: scale(1.08);
+  box-shadow: 0 14px 30px -6px rgba(37, 211, 102, 0.7),
+              0 2px 6px rgba(0, 0, 0, 0.14);
+}
+
+.wa-float:active {
+  transform: scale(1.02);
+}
+
+.wa-float svg {
+  width: 28px;
+  height: 28px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Attention pulse — soft green ring expands out every 2.4s.
+   Signals "click me" without being obnoxious. */
+.wa-float-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #25d366;
+  opacity: 0.5;
+  z-index: 0;
+  animation: waPulse 2.4s ease-out infinite;
+}
+
+@keyframes waPulse {
+  0%   { transform: scale(1);   opacity: 0.5; }
+  70%  { transform: scale(1.6); opacity: 0;   }
+  100% { transform: scale(1.6); opacity: 0;   }
+}
+
+@media (min-width: 640px) {
+  .wa-float {
+    width: 60px;
+    height: 60px;
+    bottom: 24px;
+    inset-inline-end: 24px;
+  }
+  .wa-float svg {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wa-float-pulse { animation: none; opacity: 0; }
+  .wa-float { transition: none; }
+}

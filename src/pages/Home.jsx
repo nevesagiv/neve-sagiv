@@ -9,6 +9,8 @@ import PropertyCard from '../components/PropertyCard.jsx';
 import LeadModal from '../components/LeadModal.jsx';
 import './Home.css';
 
+const FAQ_KEYS = [1, 2, 3, 4];
+
 export default function Home() {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
@@ -18,6 +20,7 @@ export default function Home() {
   const [search, setSearch] = useState('');
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [publicProperties, setPublicProperties] = useState([]);
+  const [openFaq, setOpenFaq] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -76,6 +79,7 @@ export default function Home() {
 
   // Scroll-reveal refs for each section
   const [listingsRef, listingsVisible] = useScrollReveal();
+  const [faqRef, faqVisible] = useScrollReveal();
   const [ctaRef, ctaVisible] = useScrollReveal();
 
   return (
@@ -214,6 +218,39 @@ export default function Home() {
               ))}
             </div>
           )}
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section
+        ref={faqRef}
+        className={`faq-section reveal ${faqVisible ? 'is-visible' : ''}`}
+        id="faq"
+      >
+        <div className="container container-narrow">
+          <div className="section-head">
+            <span className="section-tag">{t('home.faq_tag')}</span>
+            <h2 className="section-title">{t('home.faq_title')}</h2>
+            <p className="section-sub">{t('home.faq_sub')}</p>
+          </div>
+          <div className="faq-list">
+            {FAQ_KEYS.map((n, i) => (
+              <div key={n} className={`faq-item ${openFaq === i ? 'is-open' : ''}`}>
+                <button
+                  type="button"
+                  className="faq-q"
+                  onClick={() => setOpenFaq(openFaq === i ? -1 : i)}
+                  aria-expanded={openFaq === i}
+                >
+                  <span>{t(`home.faq_${n}_q`)}</span>
+                  <span className="faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div className="faq-a">
+                  <p>{t(`home.faq_${n}_a`)}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Header from './Header.jsx';
 import Footer from './Footer.jsx';
 import AccessibilityWidget from './AccessibilityWidget.jsx';
+import WhatsAppFloat from './WhatsAppFloat.jsx';
 import './Layout.css';
 
 export default function Layout() {
@@ -22,6 +23,7 @@ export default function Layout() {
       </main>
       <Footer />
       <AccessibilityWidget />
+      <WhatsAppFloat />
     </div>
   );
 }
