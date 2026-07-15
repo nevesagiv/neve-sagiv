@@ -28,15 +28,28 @@ export async function fetchPublishedProperties() {
   return data ?? [];
 }
 
-export async function submitLead({ propertyId, fullName, phone, email, message }) {
-  const { error } = await supabase.from('leads').insert({
+export async function submitLead({ propertyId, fullName, phone, email, message, consentVersion }) {
+  const base = {
     property_id: propertyId ?? null,
     full_name: fullName,
     phone,
     email: email || null,
     message: message || null,
-  });
-  if (error) throw error;
+  };
+  // Try with consent_version — kicks in after Orit runs the migration
+  // in Supabase (`alter table leads add column consent_version text;`).
+  // Falls back gracefully so the form never breaks if the migration
+  // hasn't been applied yet. Postgres code 42703 = undefined_column.
+  const { error } = await supabase
+    .from('leads')
+    .insert({ ...base, consent_version: consentVersion ?? null });
+  if (!error) return;
+  if (error.code === '42703' || /consent_version/i.test(error.message || '')) {
+    const retry = await supabase.from('leads').insert(base);
+    if (retry.error) throw retry.error;
+    return;
+  }
+  throw error;
 }
 
 // ============================================================================

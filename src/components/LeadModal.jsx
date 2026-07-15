@@ -5,6 +5,10 @@ import { localized } from '../lib/i18n-utils.js';
 import { submitLead } from '../lib/supabase.js';
 import './LeadModal.css';
 
+// Bump when the consent checkbox wording changes — persisted per lead so we
+// can prove, in a dispute, which exact text the user saw before submitting.
+const CONSENT_VERSION = 'v1-2026-07';
+
 export default function LeadModal({ property, isOpen, onClose }) {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
@@ -66,6 +70,7 @@ export default function LeadModal({ property, isOpen, onClose }) {
         phone: formData.get('phone'),
         email: formData.get('email'),
         message: formData.get('notes'),
+        consentVersion: CONSENT_VERSION,
       });
       onClose();
       navigate('/thank-you');

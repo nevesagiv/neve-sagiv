@@ -41,6 +41,7 @@ create table leads (
   email text,
   message text,
   ip_address text,
+  consent_version text,           -- proof snapshot: which checkbox wording the user saw (Amendment 13)
   status text default 'new',      -- new / called / cold
   contacted_at timestamptz,
   notes text,
